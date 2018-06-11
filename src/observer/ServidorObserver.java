@@ -21,7 +21,7 @@ public class ServidorObserver implements IServidorObserver{
     }
 
     @Override
-    public void setInformacao(IObservador cv) {
+    public void setInformacao(Informacao cv) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
