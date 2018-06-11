@@ -1,13 +1,14 @@
 package apresentacao.passageiro;
 
 import apresentacao.Dialogo_ERRO;
+import apresentacao.TelaLogin;
+import interfaces.IComunicaPaginaPrincipal;
 import interfaces.IObservador;
 import interfaces.IServidorObserver;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import observer.Informacao;
 
-public class PassageiroPrincipal extends JFrame implements IObservador{
+public class PassageiroPrincipal extends JFrame implements IObservador, IComunicaPaginaPrincipal{
 
     private Informacao informacao = new Informacao();
     private IServidorObserver servidorObserver;
@@ -18,6 +19,9 @@ public class PassageiroPrincipal extends JFrame implements IObservador{
     
     public PassageiroPrincipal(IServidorObserver servidorObserver) {
         initComponents();
+        TelaLogin tela = new TelaLogin(jDesktopPane, this);
+        jDesktopPane.add(tela);
+        tela.setVisible(true);
         this.servidorObserver = servidorObserver;
         this.servidorObserver.incluirNaRede(this);
     }
@@ -45,7 +49,10 @@ public class PassageiroPrincipal extends JFrame implements IObservador{
         );
 
         jMenu1.setText("File");
+        jMenu1.setEnabled(false);
+        jMenu1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
 
+        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jMenuItem1.setText("jMenuItem1");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -58,7 +65,9 @@ public class PassageiroPrincipal extends JFrame implements IObservador{
 
         jMenu2.setText("Edit");
         jMenu2.setEnabled(false);
+        jMenu2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
 
+        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jMenuItem2.setText("jMenuItem2");
         jMenu2.add(jMenuItem2);
 
@@ -81,26 +90,24 @@ public class PassageiroPrincipal extends JFrame implements IObservador{
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        try {
-            Dialogo_ERRO tela = new Dialogo_ERRO(jDesktopPane, "Teste");
-            jDesktopPane.add(tela);
-            tela.setVisible(true);
-        } catch (Exception e) {
-            JInternalFrame tela = new Dialogo_ERRO(jDesktopPane, e.getMessage(), this.getClass().getName());
-            jDesktopPane.add(tela);
-            tela.setVisible(true);
-            this.dispose();
-        }
+        
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     @Override
     public void atualiza(Informacao informacao) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.informacao = informacao;
     }
 
     @Override
     public void conversarComServidor(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        this.servidorObserver.setInformacao(this.informacao);
+    }
+    
+    @Override
+    public void comunicaPaginaPrincipal(boolean x) {
+        jMenu1.setEnabled(x);
+        jMenu2.setEnabled(x);
     }
 
     public static void main(String args[]) {
