@@ -1,9 +1,10 @@
 package apresentacao.passageiro;
 
+import apresentacao.Dialogo_ERRO;
 import interfaces.IObservador;
 import interfaces.IServidorObserver;
-import java.awt.HeadlessException;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import observer.Informacao;
 
 public class PassageiroPrincipal extends JFrame implements IObservador{
@@ -11,7 +12,7 @@ public class PassageiroPrincipal extends JFrame implements IObservador{
     private Informacao informacao = new Informacao();
     private IServidorObserver servidorObserver;
 
-    public PassageiroPrincipal() throws HeadlessException {
+    public PassageiroPrincipal(){
         initComponents();
     }
     
@@ -25,28 +26,32 @@ public class PassageiroPrincipal extends JFrame implements IObservador{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jDesktopPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jDesktopPaneLayout = new javax.swing.GroupLayout(jDesktopPane);
+        jDesktopPane.setLayout(jDesktopPaneLayout);
+        jDesktopPaneLayout.setHorizontalGroup(
+            jDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 548, Short.MAX_VALUE)
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jDesktopPaneLayout.setVerticalGroup(
+            jDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 325, Short.MAX_VALUE)
         );
 
         jMenu1.setText("File");
-        jMenu1.setEnabled(false);
 
         jMenuItem1.setText("jMenuItem1");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
@@ -65,15 +70,28 @@ public class PassageiroPrincipal extends JFrame implements IObservador{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(jDesktopPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(jDesktopPane)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        try {
+            Dialogo_ERRO tela = new Dialogo_ERRO(jDesktopPane, "Teste");
+            jDesktopPane.add(tela);
+            tela.setVisible(true);
+        } catch (Exception e) {
+            JInternalFrame tela = new Dialogo_ERRO(jDesktopPane, e.getMessage(), this.getClass().getName());
+            jDesktopPane.add(tela);
+            tela.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     @Override
     public void atualiza(Informacao informacao) {
@@ -118,7 +136,7 @@ public class PassageiroPrincipal extends JFrame implements IObservador{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JDesktopPane jDesktopPane;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

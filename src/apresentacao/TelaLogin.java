@@ -8,7 +8,7 @@ import interfaces.IComunicaPaginaPrincipal;
 public class TelaLogin extends JInternalFrame {
 
     private JDesktopPane pane;
-    IComunicaPaginaPrincipal paginaPrincipal;
+    private IComunicaPaginaPrincipal paginaPrincipal;
     public TelaLogin(JDesktopPane pane, IComunicaPaginaPrincipal tt) {
         initComponents();
         this.pane = pane;
@@ -157,7 +157,6 @@ public class TelaLogin extends JInternalFrame {
     }//GEN-LAST:event_jLabelCadastre_se_2MouseClicked
 
     private void jLabelEsqueceuASenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelEsqueceuASenhaMouseClicked
-        // TODO add your handling code here:
     }//GEN-LAST:event_jLabelEsqueceuASenhaMouseClicked
 
 
