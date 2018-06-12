@@ -2,6 +2,7 @@ package persistencia;
 
 import enuns.Sexo;
 import enuns.StatusMotorista;
+import enuns.StatusPassageiro;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,22 +10,33 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Motorista;
-import model.Passageiro;
 import util.Conexao;
 import util.Fabrica;
 import util.Ultilidades;
 
-public class MotoristaDao extends GenericDao<Motorista>{
+public class MotoristaDao extends GenericDao<Motorista> {
 
+//    @Override
+//    protected Motorista devolverObjeto(ResultSet rs) throws SQLException {
+//        while (rs.next()) {
+//            return new Motorista(rs.getInt(""), rs.getString(""), rs.getString(""), rs.getString(""),
+//                    rs.getString(""), rs.getString(""), rs.getString(""),
+//                    Ultilidades.pegaDataDevolveData(rs.getDate("")), rs.getString(""),
+//                    (Sexo) Fabrica.getInstance(Sexo.values(), rs.getString(""),
+//                     (StatusMotorista) Fabrica.getInstance(StatusMotorista.values();
+//            }
+//        return null;
+//
+//        }
     @Override
     protected Motorista devolverObjeto(ResultSet rs) throws SQLException {
         while (rs.next()) {
             return new Motorista(rs.getInt(""), rs.getString(""), rs.getString(""), 
                     rs.getString(""), rs.getString(""), rs.getString(""), rs.getString(""), 
-                    Ultilidades.pegaDataDevolveData(rs.getDate("")rs.getString(""),rs.getEnum("") ), 
+                    Ultilidades.pegaDataDevolveData(rs.getDate("")),
                     new EnderecoDao().visualizarUm(rs.getInt("")), 
                     (Sexo)Fabrica.getInstance(Sexo.values(), rs.getString("")), 
-                    (StatusMotorista)Fabrica.getInstance(StatusMotorista.values(), rs.getString("")));//Incompleto
+                    (StatusPassageiro)Fabrica.getInstance(StatusPassageiro.values(), rs.getString("")));
         }
         return null;
     }
@@ -43,18 +55,13 @@ public class MotoristaDao extends GenericDao<Motorista>{
             ps.setInt(8, t.getEndereco().getId());//endereco
             ps.setString(9, t.getSexo().getDescricao());
             ps.setString(10, t.getCnh());
-            ps.setInt(11, t.getId());
-            ps.setString(12, t.getModelo());
-            ps.setString(13, t.getMarca());
-            ps.setString(14, t.getCor());
-            ps.setInt(15, t.getAssentos());
-            ps.setInt(16, t.getPlaca());
+            ps.setString(11, t.getStatusMotorista().getDescricao());
             
 
-            if(t.getId() > 0){
-                ps.setInt(10, t.getId());
+            if (t.getId() > 0) {
+                ps.setInt(12, t.getId());
             }
-            
+
             return ps;
         } catch (SQLException e) {
             throw e;
@@ -70,8 +77,7 @@ public class MotoristaDao extends GenericDao<Motorista>{
             String curral = "SELECT currval('squencia');";
             this.inserir_alterar(t, con, sql, curral);
             con.commit();
-        }catch(Exception e){
-            e.printStackTrace();
+        } catch (SQLException e) {
             con.rollback();
         }
     }
@@ -82,14 +88,13 @@ public class MotoristaDao extends GenericDao<Motorista>{
         con.setAutoCommit(false);
         try {
             String sql = "instrucao sql";
-            
+
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, (int)object[0]);
+            ps.setInt(1, (int) object[0]);
             ps.execute();
-            
+
             con.commit();
         } catch (SQLException e) {
-            e.printStackTrace();
             con.rollback();
         }
     }
