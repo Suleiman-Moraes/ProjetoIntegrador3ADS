@@ -12,14 +12,17 @@ public class TelaLogin extends JInternalFrame {
     private JDesktopPane pane;
     private IComunicaPaginaPrincipal paginaPrincipal;
     private Legenda legenda;
+
     public TelaLogin() {
         initComponents();
     }
+
     public TelaLogin(JDesktopPane pane, IComunicaPaginaPrincipal tt) {
         this();
         this.pane = pane;
         this.paginaPrincipal = tt;
     }
+
     public TelaLogin(JDesktopPane pane, IComunicaPaginaPrincipal tt, Legenda legenda) {
         this();
         this.pane = pane;
@@ -160,6 +163,7 @@ public class TelaLogin extends JInternalFrame {
     }//GEN-LAST:event_jLabelCadastre_se_2MouseClicked
 
     private void jLabelEsqueceuASenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelEsqueceuASenhaMouseClicked
+        
     }//GEN-LAST:event_jLabelEsqueceuASenhaMouseClicked
 
     private void jButtonAvancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAvancarActionPerformed
@@ -171,7 +175,7 @@ public class TelaLogin extends JInternalFrame {
         }
     }//GEN-LAST:event_jButtonAvancarActionPerformed
 
-    private void chamarTelaCadastro(){
+    private void chamarTelaCadastro() {
         try {
             JInternalFrame janela = (JInternalFrame) Fabrica.getInstance(legenda, pane, paginaPrincipal);
             this.pane.add(janela);

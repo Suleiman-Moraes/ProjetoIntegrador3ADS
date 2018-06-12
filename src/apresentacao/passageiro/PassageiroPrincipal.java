@@ -1,5 +1,6 @@
 package apresentacao.passageiro;
 
+import apresentacao.Dialogo_ERRO;
 import apresentacao.TelaLogin;
 import enuns.Legenda;
 import interfaces.IComunicaPaginaPrincipal;
@@ -8,6 +9,7 @@ import interfaces.IServidorObserver;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import observer.Informacao;
+import util.Fabrica;
 
 public class PassageiroPrincipal extends JFrame implements IObservador, IComunicaPaginaPrincipal{
 
@@ -34,10 +36,10 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
 
         jDesktopPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuCadastro = new javax.swing.JMenu();
+        jMenuItemAlterarDados = new javax.swing.JMenuItem();
+        jMenuSair = new javax.swing.JMenu();
+        jMenuItemSair = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jDesktopPaneLayout = new javax.swing.GroupLayout(jDesktopPane);
         jDesktopPane.setLayout(jDesktopPaneLayout);
@@ -50,30 +52,35 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
             .addGap(0, 325, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("Cadastro");
-        jMenu1.setEnabled(false);
-        jMenu1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jMenuCadastro.setText("Cadastro");
+        jMenuCadastro.setEnabled(false);
+        jMenuCadastro.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
 
-        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jMenuItem1.setText("jMenuItem1");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemAlterarDados.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jMenuItemAlterarDados.setText("Alterar Dados");
+        jMenuItemAlterarDados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jMenuItemAlterarDadosActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenuCadastro.add(jMenuItemAlterarDados);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jMenuCadastro);
 
-        jMenu2.setText("Edit");
-        jMenu2.setEnabled(false);
-        jMenu2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jMenuSair.setText("Sair");
+        jMenuSair.setEnabled(false);
+        jMenuSair.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
 
-        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jMenuItem2.setText("jMenuItem2");
-        jMenu2.add(jMenuItem2);
+        jMenuItemSair.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jMenuItemSair.setText("Sair");
+        jMenuItemSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemSairActionPerformed(evt);
+            }
+        });
+        jMenuSair.add(jMenuItemSair);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jMenuSair);
 
         setJMenuBar(jMenuBar1);
 
@@ -91,9 +98,19 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void jMenuItemAlterarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAlterarDadosActionPerformed
+        try {
+            JInternalFrame janela = (JInternalFrame) Fabrica.getInstance(legenda, jDesktopPane, this);
+            this.jDesktopPane.add(janela);
+            janela.setVisible(true);
+        } catch (Exception e) {
+            Dialogo_ERRO.dialogo_ERRO(jDesktopPane, e.getMessage());
+        }
+    }//GEN-LAST:event_jMenuItemAlterarDadosActionPerformed
+
+    private void jMenuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSairActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jMenuItemSairActionPerformed
     
     @Override
     public void atualiza(Informacao informacao) {
@@ -108,8 +125,8 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
     
     @Override
     public void comunicaPaginaPrincipal(boolean x) {
-        jMenu1.setEnabled(x);
-        jMenu2.setEnabled(x);
+        jMenuCadastro.setEnabled(x);
+        jMenuSair.setEnabled(x);
     }
 
     public static void main(String args[]) {
@@ -146,10 +163,10 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenu jMenuCadastro;
+    private javax.swing.JMenuItem jMenuItemAlterarDados;
+    private javax.swing.JMenuItem jMenuItemSair;
+    private javax.swing.JMenu jMenuSair;
     // End of variables declaration//GEN-END:variables
 }
