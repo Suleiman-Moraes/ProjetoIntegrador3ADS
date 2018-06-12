@@ -276,7 +276,6 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
             janela.setVisible(true);
             janela.setLocationRelativeTo(null);
         } catch (Exception e) {
-//            Dialogo_ERRO.dialogo_ERRO(jDesktopPane, e.);
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro no Servidor", 
                     JOptionPane.ERROR_MESSAGE);
         }

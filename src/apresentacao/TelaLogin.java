@@ -12,13 +12,16 @@ public class TelaLogin extends JInternalFrame {
     private JDesktopPane pane;
     private IComunicaPaginaPrincipal paginaPrincipal;
     private Legenda legenda;
-    public TelaLogin(JDesktopPane pane, IComunicaPaginaPrincipal tt) {
+    public TelaLogin() {
         initComponents();
+    }
+    public TelaLogin(JDesktopPane pane, IComunicaPaginaPrincipal tt) {
+        this();
         this.pane = pane;
         this.paginaPrincipal = tt;
     }
     public TelaLogin(JDesktopPane pane, IComunicaPaginaPrincipal tt, Legenda legenda) {
-        initComponents();
+        this();
         this.pane = pane;
         this.paginaPrincipal = tt;
         this.legenda = legenda;
@@ -138,22 +141,22 @@ public class TelaLogin extends JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 16, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 502, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabelCadastre_se_1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCadastre_se_1MouseClicked
-        
+        this.chamarTelaCadastro();
     }//GEN-LAST:event_jLabelCadastre_se_1MouseClicked
 
     private void jLabelCadastre_se_2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCadastre_se_2MouseClicked
-        // TODO add your handling code here:
+        this.chamarTelaCadastro();
     }//GEN-LAST:event_jLabelCadastre_se_2MouseClicked
 
     private void jLabelEsqueceuASenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelEsqueceuASenhaMouseClicked

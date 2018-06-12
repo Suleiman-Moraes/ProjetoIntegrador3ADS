@@ -17,10 +17,13 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
 
     public PassageiroPrincipal(){
         initComponents();
+        JInternalFrame tela = new TelaLogin(jDesktopPane, this, legenda);
+        jDesktopPane.add(tela);
+        tela.setVisible(true);
     }
     
     public PassageiroPrincipal(IServidorObserver servidorObserver) {
-        initComponents();
+        this();
         this.servidorObserver = servidorObserver;
         this.servidorObserver.incluirNaRede(this);
     }
@@ -36,12 +39,6 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
-        jDesktopPane.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jDesktopPaneMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout jDesktopPaneLayout = new javax.swing.GroupLayout(jDesktopPane);
         jDesktopPane.setLayout(jDesktopPaneLayout);
         jDesktopPaneLayout.setHorizontalGroup(
@@ -52,12 +49,6 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
             jDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 325, Short.MAX_VALUE)
         );
-
-        jMenuBar1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuBar1MouseClicked(evt);
-            }
-        });
 
         jMenu1.setText("Cadastro");
         jMenu1.setEnabled(false);
@@ -103,20 +94,6 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jMenuBar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuBar1MouseClicked
-        abrirLogin();
-    }//GEN-LAST:event_jMenuBar1MouseClicked
-
-    private void jDesktopPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDesktopPaneMouseClicked
-        abrirLogin();
-    }//GEN-LAST:event_jDesktopPaneMouseClicked
-
-    private void abrirLogin(){
-        JInternalFrame tela = new TelaLogin(jDesktopPane, this, legenda);
-        jDesktopPane.add(tela);
-        tela.setVisible(true);
-    }
     
     @Override
     public void atualiza(Informacao informacao) {

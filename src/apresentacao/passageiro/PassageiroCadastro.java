@@ -1,7 +1,11 @@
 package apresentacao.passageiro;
 
+import apresentacao.Dialogo_ERRO;
 import enuns.Legenda;
 import javax.swing.JDesktopPane;
+import model.Endereco;
+import model.Passageiro;
+import util.Ultilidades;
 
 public class PassageiroCadastro extends javax.swing.JInternalFrame {
 
@@ -33,9 +37,8 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
         jFormattedTextFieldCPF = new javax.swing.JFormattedTextField();
         jFormattedTextFieldTelefone = new javax.swing.JFormattedTextField();
         jFormattedTextFieldDataNascimento = new javax.swing.JFormattedTextField();
-        jTextFieldNomeEmail = new javax.swing.JTextField();
+        jTextFieldEmail = new javax.swing.JTextField();
         jPasswordFieldSenha = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
         jLabelID8 = new javax.swing.JLabel();
         jRadioButtonHomem = new javax.swing.JRadioButton();
         jRadioButtonMulher = new javax.swing.JRadioButton();
@@ -51,7 +54,7 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
         jTextFieldLote = new javax.swing.JTextField();
         jTextFieldSetor = new javax.swing.JTextField();
         jTextFieldComplemento = new javax.swing.JTextField();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jFormattedTextFieldCEP = new javax.swing.JFormattedTextField();
         jPanel3 = new javax.swing.JPanel();
         jButtonSalvar = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
@@ -123,13 +126,10 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
         }
         jFormattedTextFieldDataNascimento.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
-        jTextFieldNomeEmail.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jTextFieldNomeEmail.setText("@.");
+        jTextFieldEmail.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jTextFieldEmail.setText("@.");
 
         jPasswordFieldSenha.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jButton1.setText("Pesquisar");
 
         jLabelID8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabelID8.setText("Sexo");
@@ -169,24 +169,20 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
                         .addComponent(jLabelID4, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabelID3, javax.swing.GroupLayout.Alignment.TRAILING)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextFieldNome)
-                        .addComponent(jTextFieldLogin)
-                        .addComponent(jFormattedTextFieldCPF)
-                        .addComponent(jFormattedTextFieldTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextFieldDataNascimento)
-                        .addComponent(jTextFieldNomeEmail)
-                        .addComponent(jPasswordFieldSenha))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextFieldNome)
+                    .addComponent(jTextFieldLogin)
+                    .addComponent(jFormattedTextFieldCPF)
+                    .addComponent(jFormattedTextFieldTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                    .addComponent(jFormattedTextFieldDataNascimento)
+                    .addComponent(jTextFieldEmail)
+                    .addComponent(jPasswordFieldSenha)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jRadioButtonHomem)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButtonMulher)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jRadioButtonMulher))
+                    .addComponent(jTextFieldID))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,9 +190,7 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelID)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1)))
+                    .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelID1)
@@ -212,7 +206,7 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelID4)
-                    .addComponent(jTextFieldNomeEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelID5)
@@ -264,11 +258,11 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
         jTextFieldComplemento.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+            jFormattedTextFieldCEP.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextField1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jFormattedTextFieldCEP.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -280,18 +274,21 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldRua, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
-                    .addComponent(jTextFieldQuadra)
-                    .addComponent(jTextFieldLote)
                     .addComponent(jTextFieldSetor)
                     .addComponent(jTextFieldComplemento)
-                    .addComponent(jFormattedTextField1))
-                .addGap(202, 202, 202))
+                    .addComponent(jFormattedTextFieldCEP, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                    .addComponent(jTextFieldRua)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jTextFieldQuadra, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextFieldLote, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addGap(145, 145, 145))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -303,11 +300,9 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextFieldQuadra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextFieldLote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldQuadra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldLote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -315,7 +310,7 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFormattedTextFieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -337,6 +332,7 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
         jButtonExcluir.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButtonExcluir.setText("Excluir");
         jButtonExcluir.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+        jButtonExcluir.setEnabled(false);
         jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonExcluirActionPerformed(evt);
@@ -411,7 +407,7 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -441,14 +437,43 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonFecharActionPerformed
 
+    private void preencherTela(Passageiro passageiro){
+        try {
+            jTextFieldID.setText(passageiro.getId() + "");
+            jTextFieldNome.setText(passageiro.getNome());
+            jFormattedTextFieldCPF.setText(passageiro.getCpf());
+            jFormattedTextFieldTelefone.setText(passageiro.getTelefone());
+            jTextFieldEmail.setText(passageiro.getEmail());
+            jTextFieldLogin.setText(passageiro.getLogin());
+            jPasswordFieldSenha.setText(passageiro.getSenha());
+            jFormattedTextFieldDataNascimento.setText(Ultilidades.pegaDataDevolveString(passageiro.getDataDeNascimento()));
+            this.preencherTelaEndereco(passageiro.getEndereco());
+
+            jButtonExcluir.setEnabled(true);
+        } catch (Exception e) {
+            Dialogo_ERRO.dialogo_ERRO(principal, e.getMessage());
+        }
+    }
+    
+    private void preencherTelaEndereco(Endereco endereco){
+        try {
+            jTextFieldRua.setText(endereco.getRua());
+            jTextFieldQuadra.setText(endereco.getQuadra());
+            jTextFieldLote.setText(endereco.getLote());
+            jTextFieldSetor.setText(endereco.getSetor());
+            jFormattedTextFieldCEP.setText(endereco.getCep());
+            jTextFieldComplemento.setText(endereco.getComplemento());
+        } catch (Exception e) {
+            Dialogo_ERRO.dialogo_ERRO(principal, e.getMessage());
+        }
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonFechar;
     private javax.swing.JButton jButtonLimpar;
     private javax.swing.JButton jButtonSalvar;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JFormattedTextField jFormattedTextFieldCEP;
     private javax.swing.JFormattedTextField jFormattedTextFieldCPF;
     private javax.swing.JFormattedTextField jFormattedTextFieldDataNascimento;
     private javax.swing.JFormattedTextField jFormattedTextFieldTelefone;
@@ -474,11 +499,11 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jRadioButtonHomem;
     private javax.swing.JRadioButton jRadioButtonMulher;
     private javax.swing.JTextField jTextFieldComplemento;
+    private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldID;
     private javax.swing.JTextField jTextFieldLogin;
     private javax.swing.JTextField jTextFieldLote;
     private javax.swing.JTextField jTextFieldNome;
-    private javax.swing.JTextField jTextFieldNomeEmail;
     private javax.swing.JTextField jTextFieldQuadra;
     private javax.swing.JTextField jTextFieldRua;
     private javax.swing.JTextField jTextFieldSetor;
