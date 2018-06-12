@@ -467,9 +467,6 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
                 principal.add(tela);
                 tela.setVisible(true);
             }
-            else{
-                
-            }
             this.dispose();
         } catch (Exception e) {
             Dialogo_ERRO.dialogo_ERRO(principal, e.getMessage());
