@@ -19,12 +19,21 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
     private Legenda legenda;
     private JDesktopPane principal;
     private IComunicaPaginaPrincipal paginaPrincipal;
+    private Passageiro passageiro;
     
     public PassageiroCadastro(Legenda legenda, JDesktopPane principal, IComunicaPaginaPrincipal paginaPrincipal) {
         initComponents();
         this.legenda = legenda;
         this.principal = principal;
         this.paginaPrincipal = paginaPrincipal;
+    }
+    public PassageiroCadastro(Legenda legenda, JDesktopPane principal, IComunicaPaginaPrincipal paginaPrincipal, Passageiro passageiro) {
+        initComponents();
+        this.legenda = legenda;
+        this.principal = principal;
+        this.paginaPrincipal = paginaPrincipal;
+        this.passageiro = passageiro;
+        this.preencherTela(passageiro);
     }
 
     
