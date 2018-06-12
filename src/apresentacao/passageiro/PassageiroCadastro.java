@@ -1,10 +1,14 @@
 package apresentacao.passageiro;
 
 import apresentacao.Dialogo_ERRO;
+import apresentacao.Dialogo_Sucesso;
 import enuns.Legenda;
+import enuns.Sexo;
+import java.util.Arrays;
 import javax.swing.JDesktopPane;
 import model.Endereco;
 import model.Passageiro;
+import service.PassageiroService;
 import util.Ultilidades;
 
 public class PassageiroCadastro extends javax.swing.JInternalFrame {
@@ -422,7 +426,16 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jRadioButtonMulherActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        // TODO add your handling code here:
+        try {
+            this.validaCampos();
+            Passageiro passageiro = this.printTela();
+            
+            new PassageiroService().salvar(passageiro);
+            Dialogo_Sucesso.dialogo_Sucesso(principal, "Dados Inseridos com sucesso!");
+            this.limparTela();
+        } catch (Exception e) {
+            Dialogo_ERRO.dialogo_ERRO(principal, e.getMessage());
+        }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
@@ -437,6 +450,94 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonFecharActionPerformed
 
+    private void validaCampos() throws Exception{
+        if(jTextFieldNome.getText().trim().equals("")) throw new Exception("Insira Nome.");
+        if(jFormattedTextFieldCPF.getText().trim().length() != 14){
+            throw new Exception("Insira CPF.");
+        }
+        if(jFormattedTextFieldTelefone.getText().trim().length() < 15){
+            throw new Exception("Insira Telefone.");
+        }
+        if(jTextFieldEmail.getText().trim().length() >= 5){
+            int cont = 0;
+            boolean ponto = false;
+            for (int i = 0; i < jTextFieldEmail.getText().trim().length(); i++) {
+                if(jTextFieldEmail.getText().trim().charAt(i) == '@'){
+                    cont ++;
+                }
+                else if(jTextFieldEmail.getText().trim().charAt(i) == '.'){
+                    ponto = true;
+                }
+            }
+            if(cont != 1 || !ponto){
+                throw new Exception("E-mail Inválido.");
+            }
+        }
+        if(jTextFieldLogin.getText().trim().equals("")) throw new Exception("Insira Login.");
+        if(jPasswordFieldSenha.getPassword().length == 0) throw new Exception("Insira Senha.");
+        if(jFormattedTextFieldDataNascimento.getText().trim().length() != 10){
+            throw new Exception("Insira Data de Nascimento.");
+        }
+        if(!jRadioButtonHomem.isSelected() && !jRadioButtonMulher.isSelected()){
+            throw new Exception("Selecione Sexo.");
+        }
+    }
+    
+    private void validaCamposEndereco() throws Exception{
+        if(jTextFieldRua.getText().trim().equals("")) throw new Exception("Insira Rua.");
+        if(jTextFieldQuadra.getText().trim().equals("")) throw new Exception("Insira Quadra.");
+        if(jTextFieldLote.getText().trim().equals("")) throw new Exception("Insira Lote.");
+        if(jTextFieldSetor.getText().trim().equals("")) throw new Exception("Insira Setor.");
+//        if(jFormattedTextFieldCEP.getText().trim().length() != 9){
+//            throw new Exception("");
+//        }
+//        if(jTextFieldComplemento.getText().trim().equals("")) throw new Exception("");
+    }
+    
+    private Passageiro printTela() throws Exception{
+        Passageiro passageiro = new Passageiro();
+        if(!jTextFieldID.getText().trim().equals("")){
+            passageiro.setId(new Integer(jTextFieldID.getText().trim()));
+        }
+        passageiro.setNome(jTextFieldNome.getText().trim());
+        passageiro.setCpf(jFormattedTextFieldCPF.getText().trim());
+        passageiro.setTelefone(jFormattedTextFieldTelefone.getText().trim());
+        if(jTextFieldEmail.getText().trim().length() >= 5){
+            passageiro.setEmail(jTextFieldEmail.getText().trim());
+        }
+        passageiro.setLogin(jTextFieldLogin.getText().trim());
+        passageiro.setSenha(Arrays.toString(jPasswordFieldSenha.getPassword()));
+        passageiro.setDataDeNascimento(
+                Ultilidades.pegaStringDevolveDataUtil(jFormattedTextFieldDataNascimento.getText().trim()));
+        if(jRadioButtonHomem.isSelected()){
+            passageiro.setSexo(Sexo.HOMEM);
+        }
+        else{
+            passageiro.setSexo(Sexo.MULHER);
+        }
+        
+        passageiro.setEndereco(printTelaEndereco());
+        
+        return passageiro;
+    }
+    
+    private Endereco printTelaEndereco(){
+        Endereco x = new Endereco();
+        
+        x.setRua(jTextFieldRua.getText().trim());
+        x.setQuadra(jTextFieldQuadra.getText().trim());
+        x.setLote(jTextFieldLote.getText().trim());
+        x.setSetor(jTextFieldSetor.getText().trim());
+        if(jFormattedTextFieldCEP.getText().trim().length() == 9){
+            x.setCep(jFormattedTextFieldCEP.getText().trim());
+        }
+        if(!jTextFieldComplemento.getText().trim().equals("")){
+            x.setComplemento(jTextFieldComplemento.getText().trim());
+        }
+        
+        return x;
+    }
+    
     private void preencherTela(Passageiro passageiro){
         try {
             jTextFieldID.setText(passageiro.getId() + "");
@@ -449,7 +550,7 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
             jFormattedTextFieldDataNascimento.setText(Ultilidades.pegaDataDevolveString(passageiro.getDataDeNascimento()));
             this.preencherTelaEndereco(passageiro.getEndereco());
 
-            jButtonExcluir.setEnabled(true);
+//            jButtonExcluir.setEnabled(true);
         } catch (Exception e) {
             Dialogo_ERRO.dialogo_ERRO(principal, e.getMessage());
         }
@@ -463,6 +564,37 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
             jTextFieldSetor.setText(endereco.getSetor());
             jFormattedTextFieldCEP.setText(endereco.getCep());
             jTextFieldComplemento.setText(endereco.getComplemento());
+        } catch (Exception e) {
+            Dialogo_ERRO.dialogo_ERRO(principal, e.getMessage());
+        }
+    }
+    
+    private void limparTela(){
+        try {
+            jTextFieldID.setText("");
+            jTextFieldNome.setText("");
+            jFormattedTextFieldCPF.setText("");
+            jFormattedTextFieldTelefone.setText("");
+            jTextFieldEmail.setText("@.");
+            jTextFieldLogin.setText("");
+            jPasswordFieldSenha.setText("");
+            jFormattedTextFieldDataNascimento.setText("");
+            this.limparTelaEndereco();
+
+//            jButtonExcluir.setEnabled(false);
+        } catch (Exception e) {
+            Dialogo_ERRO.dialogo_ERRO(principal, e.getMessage());
+        }
+    }
+    
+    private void limparTelaEndereco(){
+        try {
+            jTextFieldRua.setText("");
+            jTextFieldQuadra.setText("");
+            jTextFieldLote.setText("");
+            jTextFieldSetor.setText("");
+            jFormattedTextFieldCEP.setText("");
+            jTextFieldComplemento.setText("");
         } catch (Exception e) {
             Dialogo_ERRO.dialogo_ERRO(principal, e.getMessage());
         }

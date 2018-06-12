@@ -1,5 +1,6 @@
 package util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -12,6 +13,14 @@ public class Ultilidades {
     
     public static String pegaDataDevolveString(java.sql.Date date){
         return format.format(date);
+    }
+    
+    public static Date pegaStringDevolveDataUtil(String date) throws ParseException{
+        return format.parse(date);
+    }
+    
+    public static Date pegaStringDevolveDataSQL(String date) throws ParseException{
+        return pegaDataDevolveData(format.parse(date));
     }
     
     public static java.sql.Date pegaDataDevolveData(Date date){
