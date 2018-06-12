@@ -4,27 +4,32 @@ import interfaces.ICrudService;
 import java.sql.SQLException;
 import java.util.Iterator;
 import model.Passageiro;
+import persistencia.PassageiroDao;
 
 public class PassageiroService implements ICrudService<Passageiro>{
 
     @Override
     public void salvar(Passageiro t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(t.getId() != 0){
+            new PassageiroDao().alterar(t);
+        }
+        else{
+            new PassageiroDao().inserir(t);
+        }
     }
 
     @Override
     public void deletar(Object... object) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        new PassageiroDao().deletar(object);
     }
 
     @Override
     public Passageiro visualizarUm(Object... object) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new PassageiroDao().visualizarUm(object);
     }
 
     @Override
     public Iterator<Passageiro> visualizarAll() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new PassageiroDao().visualizarAll().iterator();
     }
-    
 }
