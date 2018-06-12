@@ -173,7 +173,7 @@ public class TelaLogin extends JInternalFrame {
 
     private void chamarTelaCadastro(){
         try {
-            JInternalFrame janela = (JInternalFrame) Fabrica.getInstance(legenda, pane);
+            JInternalFrame janela = (JInternalFrame) Fabrica.getInstance(legenda, pane, paginaPrincipal);
             this.pane.add(janela);
             janela.setVisible(true);
             this.dispose();

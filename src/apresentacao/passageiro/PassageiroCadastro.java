@@ -2,10 +2,13 @@ package apresentacao.passageiro;
 
 import apresentacao.Dialogo_ERRO;
 import apresentacao.Dialogo_Sucesso;
+import apresentacao.TelaLogin;
 import enuns.Legenda;
 import enuns.Sexo;
+import interfaces.IComunicaPaginaPrincipal;
 import java.util.Arrays;
 import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import model.Endereco;
 import model.Passageiro;
 import service.PassageiroService;
@@ -15,10 +18,13 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
 
     private Legenda legenda;
     private JDesktopPane principal;
-    public PassageiroCadastro(Legenda legenda, JDesktopPane principal) {
+    private IComunicaPaginaPrincipal paginaPrincipal;
+    
+    public PassageiroCadastro(Legenda legenda, JDesktopPane principal, IComunicaPaginaPrincipal paginaPrincipal) {
         initComponents();
         this.legenda = legenda;
         this.principal = principal;
+        this.paginaPrincipal = paginaPrincipal;
     }
 
     
@@ -439,15 +445,35 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-        // TODO add your handling code here:
+        try {
+            
+        } catch (Exception e) {
+            Dialogo_ERRO.dialogo_ERRO(principal, e.getMessage());
+        }
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
-        // TODO add your handling code here:
+        try {
+            limparTela();
+        } catch (Exception e) {
+            Dialogo_ERRO.dialogo_ERRO(principal, e.getMessage());
+        }
     }//GEN-LAST:event_jButtonLimparActionPerformed
 
     private void jButtonFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFecharActionPerformed
-        // TODO add your handling code here:
+        try {
+            if(jTextFieldID.getText().trim().equals("")){
+                JInternalFrame tela = new TelaLogin(principal, paginaPrincipal, legenda);
+                principal.add(tela);
+                tela.setVisible(true);
+            }
+            else{
+                
+            }
+            this.dispose();
+        } catch (Exception e) {
+            Dialogo_ERRO.dialogo_ERRO(principal, e.getMessage());
+        }
     }//GEN-LAST:event_jButtonFecharActionPerformed
 
     private void validaCampos() throws Exception{

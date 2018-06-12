@@ -2,6 +2,7 @@ package util;
 
 import apresentacao.passageiro.PassageiroCadastro;
 import enuns.Legenda;
+import interfaces.IComunicaPaginaPrincipal;
 import javax.swing.JDesktopPane;
 
 public class Fabrica {
@@ -14,10 +15,10 @@ public class Fabrica {
         return null;
     }
     
-    public static Object getInstance(Legenda legenda, JDesktopPane pane){
+    public static Object getInstance(Legenda legenda, JDesktopPane pane, IComunicaPaginaPrincipal paginaPrincipal){
         switch(legenda){
             case PASSAGEIRO:
-                return new PassageiroCadastro(legenda, pane);
+                return new PassageiroCadastro(legenda, pane, paginaPrincipal);
             default:
                 return null;
         }
