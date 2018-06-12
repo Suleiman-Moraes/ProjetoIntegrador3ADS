@@ -1,10 +1,16 @@
 package apresentacao.passageiro;
 
+import enuns.Legenda;
+import javax.swing.JDesktopPane;
+
 public class PassageiroCadastro extends javax.swing.JInternalFrame {
 
-    
-    public PassageiroCadastro() {
+    private Legenda legenda;
+    private JDesktopPane principal;
+    public PassageiroCadastro(Legenda legenda, JDesktopPane principal) {
         initComponents();
+        this.legenda = legenda;
+        this.principal = principal;
     }
 
     
@@ -53,6 +59,7 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
         jButtonFechar = new javax.swing.JButton();
 
         setResizable(true);
+        setTitle("Cadastro de Passageiro");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(0, 0, 0)), "Dados Básicos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18))); // NOI18N
 
@@ -321,18 +328,38 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
         jButtonSalvar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButtonSalvar.setText("Salvar");
         jButtonSalvar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
 
         jButtonExcluir.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButtonExcluir.setText("Excluir");
         jButtonExcluir.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
 
         jButtonLimpar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButtonLimpar.setText("Limpar");
         jButtonLimpar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+        jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimparActionPerformed(evt);
+            }
+        });
 
         jButtonFechar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButtonFechar.setText("Fechar");
         jButtonFechar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+        jButtonFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFecharActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -397,6 +424,22 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
     private void jRadioButtonMulherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMulherActionPerformed
         jRadioButtonHomem.setSelected(false);
     }//GEN-LAST:event_jRadioButtonMulherActionPerformed
+
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonLimparActionPerformed
+
+    private void jButtonFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFecharActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonFecharActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

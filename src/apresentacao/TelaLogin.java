@@ -1,18 +1,27 @@
 package apresentacao;
 
+import enuns.Legenda;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import interfaces.IComunicaPaginaPrincipal;
+import util.Fabrica;
 
 public class TelaLogin extends JInternalFrame {
 
     private JDesktopPane pane;
     private IComunicaPaginaPrincipal paginaPrincipal;
+    private Legenda legenda;
     public TelaLogin(JDesktopPane pane, IComunicaPaginaPrincipal tt) {
         initComponents();
         this.pane = pane;
         this.paginaPrincipal = tt;
+    }
+    public TelaLogin(JDesktopPane pane, IComunicaPaginaPrincipal tt, Legenda legenda) {
+        initComponents();
+        this.pane = pane;
+        this.paginaPrincipal = tt;
+        this.legenda = legenda;
     }
 
     @SuppressWarnings("unchecked")
@@ -133,11 +142,22 @@ public class TelaLogin extends JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(0, 16, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabelCadastre_se_1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCadastre_se_1MouseClicked
+        
+    }//GEN-LAST:event_jLabelCadastre_se_1MouseClicked
+
+    private void jLabelCadastre_se_2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCadastre_se_2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabelCadastre_se_2MouseClicked
+
+    private void jLabelEsqueceuASenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelEsqueceuASenhaMouseClicked
+    }//GEN-LAST:event_jLabelEsqueceuASenhaMouseClicked
 
     private void jButtonAvancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAvancarActionPerformed
         try {
@@ -148,17 +168,16 @@ public class TelaLogin extends JInternalFrame {
         }
     }//GEN-LAST:event_jButtonAvancarActionPerformed
 
-    private void jLabelCadastre_se_1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCadastre_se_1MouseClicked
-        JOptionPane.showMessageDialog(null, "HaHa");
-    }//GEN-LAST:event_jLabelCadastre_se_1MouseClicked
-
-    private void jLabelCadastre_se_2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCadastre_se_2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabelCadastre_se_2MouseClicked
-
-    private void jLabelEsqueceuASenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelEsqueceuASenhaMouseClicked
-    }//GEN-LAST:event_jLabelEsqueceuASenhaMouseClicked
-
+    private void chamarTelaCadastro(){
+        try {
+            JInternalFrame janela = (JInternalFrame) Fabrica.getInstance(legenda, pane);
+            this.pane.add(janela);
+            janela.setVisible(true);
+            this.dispose();
+        } catch (Exception e) {
+            Dialogo_ERRO.dialogo_ERRO(pane, e.getMessage());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAvancar;
