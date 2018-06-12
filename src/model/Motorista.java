@@ -2,6 +2,7 @@ package model;
 
 import enuns.Sexo;
 import enuns.StatusMotorista;
+import enuns.StatusPassageiro;
 import java.util.Date;
 
 public class Motorista extends DadosBasicos{
@@ -20,6 +21,14 @@ public class Motorista extends DadosBasicos{
         super(objeto);
         this.cnh = objeto.cnh;
         this.statusMotorista = objeto.statusMotorista;
+    }
+
+    public Motorista(int aInt, String string, String string0, String string1, String string2, String string3, String string4, Date pegaDataDevolveData, String string5, Sexo sexo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Motorista(int aInt, String string, String string0, String string1, String string2, String string3, String string4, Date pegaDataDevolveData, Endereco visualizarUm, Sexo sexo, StatusPassageiro statusPassageiro) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     //Metodos
