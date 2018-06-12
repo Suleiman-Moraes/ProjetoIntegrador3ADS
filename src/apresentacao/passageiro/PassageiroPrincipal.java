@@ -1,7 +1,7 @@
 package apresentacao.passageiro;
 
-import apresentacao.Dialogo_ERRO;
 import apresentacao.TelaLogin;
+import enuns.Legenda;
 import interfaces.IComunicaPaginaPrincipal;
 import interfaces.IObservador;
 import interfaces.IServidorObserver;
@@ -12,6 +12,7 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
 
     private Informacao informacao = new Informacao();
     private IServidorObserver servidorObserver;
+    private Legenda legenda = Legenda.PASSAGEIRO;
 
     public PassageiroPrincipal(){
         initComponents();
