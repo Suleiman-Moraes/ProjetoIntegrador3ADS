@@ -41,7 +41,16 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
         jMenuSair = new javax.swing.JMenu();
         jMenuItemSair = new javax.swing.JMenuItem();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Passageiro");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         javax.swing.GroupLayout jDesktopPaneLayout = new javax.swing.GroupLayout(jDesktopPane);
         jDesktopPane.setLayout(jDesktopPaneLayout);
@@ -111,8 +120,19 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
     }//GEN-LAST:event_jMenuItemAlterarDadosActionPerformed
 
     private void jMenuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSairActionPerformed
+        this.servidorObserver.retirarDaRede(this);
         this.dispose();
     }//GEN-LAST:event_jMenuItemSairActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        
+    }//GEN-LAST:event_formWindowClosing
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        System.out.println("aki");
+        this.servidorObserver.retirarDaRede(this);
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosed
     
     @Override
     public void atualiza(Informacao informacao) {

@@ -39,6 +39,7 @@ public class MotoristaPrincipal extends javax.swing.JFrame implements IObservado
         jMenuSair = new javax.swing.JMenu();
         jMenuItemSair = new javax.swing.JMenuItem();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Motorista");
 
         javax.swing.GroupLayout jDesktopPaneLayout = new javax.swing.GroupLayout(jDesktopPane);
@@ -109,6 +110,7 @@ public class MotoristaPrincipal extends javax.swing.JFrame implements IObservado
     }//GEN-LAST:event_jMenuItemAlterarDadosActionPerformed
 
     private void jMenuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSairActionPerformed
+        this.servidorObserver.retirarDaRede(this);
         this.dispose();
     }//GEN-LAST:event_jMenuItemSairActionPerformed
 
