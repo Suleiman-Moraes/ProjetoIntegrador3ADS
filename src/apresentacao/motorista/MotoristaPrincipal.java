@@ -14,7 +14,7 @@ public class MotoristaPrincipal extends javax.swing.JFrame implements IObservado
 
     private Informacao informacao = new Informacao();
     private IServidorObserver servidorObserver;
-    private Legenda legenda = Legenda.MOTORISTA;
+    private Legenda legenda = Legenda.MOTORISTA; 
     
     public MotoristaPrincipal() {
         initComponents();
