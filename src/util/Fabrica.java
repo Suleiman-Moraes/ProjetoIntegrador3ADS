@@ -1,5 +1,6 @@
 package util;
 
+import apresentacao.motorista.MotoristaCadastro;
 import apresentacao.passageiro.PassageiroCadastro;
 import enuns.Legenda;
 import interfaces.IComunicaPaginaPrincipal;
@@ -19,8 +20,8 @@ public class Fabrica {
         switch(legenda){
             case PASSAGEIRO:
                 return new PassageiroCadastro(legenda, pane, paginaPrincipal);
-//            case MOTORISTA:
-//                return new MotoristaCadastro(legenda, pane, paginaPrincipal);
+            case MOTORISTA:
+                return new MotoristaCadastro(legenda, pane, paginaPrincipal);
             default:
                 return null;
         }
