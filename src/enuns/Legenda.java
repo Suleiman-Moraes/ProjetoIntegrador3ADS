@@ -1,23 +1,26 @@
 package enuns;
 public enum Legenda {
-    PASSAGEIRO("CadastroModelo", "Visualização de Modelo", "Modelo", "apresentacao.cadastro.", "persistencia.ModeloDao");
+    PASSAGEIRO("PassageiroPrincipal", "Visualização de Passageiro", "Passageiro", "apresentacao.passageiro.", "persistencia.PassageiroDao", "service.PassageiroService"),
+    MOTORISTA("MotoristaPrincipal", "Visualização de Motorista", "Motorista", "apresentacao.motorista.", "persistencia.MotoristaDao", "service.MotoristaService");
     
-    private String classe;
+    private String principal;
     private String tituloGrid;
     private String nomeGrid;
-    private String pacote;
+    private String caminhoPrincipal;
+    private String dao;
     private String service;
 
-    private Legenda(String classe, String tituloGrid, String nomeGrid, String pacote, String service) {
-        this.classe = classe;
+    private Legenda(String principal, String tituloGrid, String nomeGrid, String caminhoPrincipal, String dao, String service) {
+        this.principal = principal;
         this.tituloGrid = tituloGrid;
         this.nomeGrid = nomeGrid;
-        this.pacote = pacote;
+        this.caminhoPrincipal = caminhoPrincipal;
+        this.dao = dao;
         this.service = service;
     }
 
-    public String getClasse() {
-        return classe;
+    public String getPrincipal() {
+        return principal;
     }
 
     public String getTituloGrid() {
@@ -28,8 +31,12 @@ public enum Legenda {
         return nomeGrid;
     }
 
-    public String getPacote() {
-        return pacote;
+    public String getCaminhoPrincipal() {
+        return caminhoPrincipal;
+    }
+
+    public String getDao() {
+        return dao;
     }
 
     public String getService() {

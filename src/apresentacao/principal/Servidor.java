@@ -1,19 +1,31 @@
 package apresentacao.principal;
 
+import apresentacao.motorista.MotoristaPrincipal;
 import apresentacao.passageiro.PassageiroPrincipal;
+import enuns.StatusPassageiro;
+import interfaces.IDesmaterializar;
 import interfaces.IObservador;
 import interfaces.IServidorObserver;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import observer.Informacao;
+import service.MotoristaService;
+import service.PassageiroService;
 
 public class Servidor extends javax.swing.JFrame implements IServidorObserver{
 
     private List observadores;
     private Informacao informacao;
+    private final PassageiroService passageiroService;
+    private final MotoristaService motoristaService;
+    private DefaultTableModel model = new DefaultTableModel();;
     
     public Servidor() {
+        this.passageiroService = new PassageiroService();
+        this.motoristaService = new MotoristaService();
         initComponents();
         observadores = new ArrayList();
     }
@@ -51,10 +63,23 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
 
             },
             new String [] {
-
+                "Código", "Nome Passageiro", "Nome Motorista"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTableEmViagem);
+        if (jTableEmViagem.getColumnModel().getColumnCount() > 0) {
+            jTableEmViagem.getColumnModel().getColumn(0).setResizable(false);
+            jTableEmViagem.getColumnModel().getColumn(1).setResizable(false);
+            jTableEmViagem.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -80,10 +105,25 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
 
             },
             new String [] {
-
+                "Código", "Nome", "CPF", "Telefone", "Sexo"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(jTablePassageiroOnline);
+        if (jTablePassageiroOnline.getColumnModel().getColumnCount() > 0) {
+            jTablePassageiroOnline.getColumnModel().getColumn(0).setResizable(false);
+            jTablePassageiroOnline.getColumnModel().getColumn(1).setResizable(false);
+            jTablePassageiroOnline.getColumnModel().getColumn(2).setResizable(false);
+            jTablePassageiroOnline.getColumnModel().getColumn(3).setResizable(false);
+            jTablePassageiroOnline.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -109,10 +149,25 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
 
             },
             new String [] {
-
+                "Código", "Nome", "CPF", "Telefone", "Sexo"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(jTablePassageiroSolicitouViagem);
+        if (jTablePassageiroSolicitouViagem.getColumnModel().getColumnCount() > 0) {
+            jTablePassageiroSolicitouViagem.getColumnModel().getColumn(0).setResizable(false);
+            jTablePassageiroSolicitouViagem.getColumnModel().getColumn(1).setResizable(false);
+            jTablePassageiroSolicitouViagem.getColumnModel().getColumn(2).setResizable(false);
+            jTablePassageiroSolicitouViagem.getColumnModel().getColumn(3).setResizable(false);
+            jTablePassageiroSolicitouViagem.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -138,10 +193,25 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
 
             },
             new String [] {
-
+                "Código", "Nome", "CNH", "Sexo", "Placa Veículo"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane4.setViewportView(jTableMotoristaDisponivel);
+        if (jTableMotoristaDisponivel.getColumnModel().getColumnCount() > 0) {
+            jTableMotoristaDisponivel.getColumnModel().getColumn(0).setResizable(false);
+            jTableMotoristaDisponivel.getColumnModel().getColumn(1).setResizable(false);
+            jTableMotoristaDisponivel.getColumnModel().getColumn(2).setResizable(false);
+            jTableMotoristaDisponivel.getColumnModel().getColumn(3).setResizable(false);
+            jTableMotoristaDisponivel.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -276,7 +346,6 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
             janela.setVisible(true);
             janela.setLocationRelativeTo(null);
         } catch (Exception e) {
-//            Dialogo_ERRO.dialogo_ERRO(jDesktopPane, e.);
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro no Servidor", 
                     JOptionPane.ERROR_MESSAGE);
         }
@@ -284,16 +353,50 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
 
     private void jButtonMotoristaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMotoristaActionPerformed
         try {
-            
+            MotoristaPrincipal janela = new MotoristaPrincipal(this);
+            janela.setVisible(true);
+            janela.setLocationRelativeTo(null);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro no Servidor", 
                     JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonMotoristaActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    @Override
+    public void incluirNaRede(IObservador cv) {
+        observadores.add(cv);
+    }
+
+    @Override
+    public void retirarDaRede(IObservador cv) {
+        if(cv != null){
+            observadores.remove(cv);
+        }
+    }
+
+    @Override
+    public void dispararInformacoes() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setInformacao(Informacao cv) {
+        //atualizargrid
+    }
+    
+    private void atualizaGrids(){
+        try {
+            jTablePassageiroOnline.setModel(model);
+            model.setNumRows(0);
+            Iterator online = passageiroService.bucarPassageirosPassandoStatusEnum(StatusPassageiro.ONLINE);
+            while(online.hasNext()){
+                IDesmaterializar x = (IDesmaterializar) online.next();
+                model.addRow(x.desmaterializar());
+            }
+        } catch (Exception e) {
+        }
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -346,24 +449,4 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
     private javax.swing.JTable jTablePassageiroSolicitouViagem;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void incluirNaRede(IObservador cv) {
-        observadores.add(cv);
-    }
-
-    @Override
-    public void retirarDaRede(IObservador cv) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void dispararInformacoes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void setInformacao(Informacao cv) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

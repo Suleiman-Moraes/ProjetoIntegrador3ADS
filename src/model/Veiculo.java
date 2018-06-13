@@ -14,9 +14,7 @@ public class Veiculo implements IDesmaterializar, IModel{
     private String placa;
 
     //Construtor
-    public Veiculo() {
-    }
-
+    public Veiculo() {}
     public Veiculo(int id, String modelo, String marca, String cor, int assentos, String placa) {
         this.id = id;
         this.modelo = modelo;
@@ -24,9 +22,7 @@ public class Veiculo implements IDesmaterializar, IModel{
         this.cor = cor;
         this.assentos = assentos;
         this.placa = placa;
-
     }
-
     public Veiculo(Veiculo objeto) {
         this.id = objeto.id;
         this.modelo = objeto.modelo;
@@ -100,5 +96,4 @@ public class Veiculo implements IDesmaterializar, IModel{
     public void setPlaca(String placa) {
         this.placa = placa;
     }
-
 }

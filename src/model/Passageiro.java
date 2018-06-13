@@ -22,9 +22,9 @@ public class Passageiro extends DadosBasicos{
     //Metodos
     @Override
     public String[] desmaterializar() {
-        String[] linha = this.desmaterializar(17);
+        String[] linha = this.desmaterializar(16);
         
-        linha[16] = statusPassageiro.getDescricao();
+        linha[15] = statusPassageiro.getDescricao();
         return linha;
     }
     

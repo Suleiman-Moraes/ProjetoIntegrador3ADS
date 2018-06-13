@@ -2,7 +2,6 @@ package persistencia;
 
 import enuns.Sexo;
 import enuns.StatusMotorista;
-import enuns.StatusPassageiro;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,18 +15,6 @@ import util.Ultilidades;
 
 public class MotoristaDao extends GenericDao<Motorista> {
 
-//    @Override
-//    protected Motorista devolverObjeto(ResultSet rs) throws SQLException {
-//        while (rs.next()) {
-//            return new Motorista(rs.getInt(""), rs.getString(""), rs.getString(""), rs.getString(""),
-//                    rs.getString(""), rs.getString(""), rs.getString(""),
-//                    Ultilidades.pegaDataDevolveData(rs.getDate("")), rs.getString(""),
-//                    (Sexo) Fabrica.getInstance(Sexo.values(), rs.getString(""),
-//                     (StatusMotorista) Fabrica.getInstance(StatusMotorista.values();
-//            }
-//        return null;
-//
-//        }
     @Override
     protected Motorista devolverObjeto(ResultSet rs) throws SQLException {
         while (rs.next()) {
@@ -35,8 +22,10 @@ public class MotoristaDao extends GenericDao<Motorista> {
                     rs.getString(""), rs.getString(""), rs.getString(""), rs.getString(""), 
                     Ultilidades.pegaDataDevolveData(rs.getDate("")),
                     new EnderecoDao().visualizarUm(rs.getInt("")), 
-                    (Sexo)Fabrica.getInstance(Sexo.values(), rs.getString("")), 
-                    (StatusPassageiro)Fabrica.getInstance(StatusPassageiro.values(), rs.getString("")));
+                    (Sexo)Fabrica.getInstance(Sexo.values(), rs.getString("")),
+                    rs.getString(""),
+                    (StatusMotorista)Fabrica.getInstance(StatusMotorista.values(), rs.getString("")), 
+                    new VeiculoDao().visualizarUm(rs.getInt("")));
         }
         return null;
     }
@@ -56,10 +45,10 @@ public class MotoristaDao extends GenericDao<Motorista> {
             ps.setString(9, t.getSexo().getDescricao());
             ps.setString(10, t.getCnh());
             ps.setString(11, t.getStatusMotorista().getDescricao());
-            
+            ps.setInt(12, t.getVeiculo().getId());
 
             if (t.getId() > 0) {
-                ps.setInt(12, t.getId());
+                ps.setInt(13, t.getId());
             }
 
             return ps;

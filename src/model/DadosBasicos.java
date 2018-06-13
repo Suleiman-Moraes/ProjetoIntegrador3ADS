@@ -59,10 +59,10 @@ public abstract class DadosBasicos implements IDesmaterializar, IModel{
         linha[6] = this.senha;
         linha[7] = Ultilidades.pegaDataDevolveString(this.dataDeNascimento);
         String[] ender = endereco.desmaterializar();
-        for (int i = 0; i < ender.length; i++) {
+        for (int i = 1; i < ender.length; i++) {
             linha[i + 7] = ender[i];
         }
-        linha[15] = sexo.getDescricao();
+        linha[14] = sexo.getDescricao();
         return linha;
     }
     

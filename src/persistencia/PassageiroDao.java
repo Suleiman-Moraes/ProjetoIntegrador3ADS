@@ -121,4 +121,13 @@ public class PassageiroDao extends GenericDao<Passageiro>{
             return null;
         }
     }
+    
+    public List<Passageiro> bucarPassageirosPassandoParametros(String... condicao) throws SQLException {
+        try {
+            Connection con = util.Conexao.getConexao();
+            return this.visualizar(con, "Nome da tabela", condicao);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }
