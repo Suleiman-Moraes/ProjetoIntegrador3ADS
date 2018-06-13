@@ -1,6 +1,7 @@
 package enuns;
 public enum Legenda {
-    PASSAGEIRO("PassageiroPrincipal", "Visualização de Passageiro", "Passageiro", "apresentacao.passageiro.", "persistencia.PassageiroDao", "service.PassageiroService");
+    PASSAGEIRO("PassageiroPrincipal", "Visualização de Passageiro", "Passageiro", "apresentacao.passageiro.", "persistencia.PassageiroDao", "service.PassageiroService"),
+    MOTORISTA("MotoristaPrincipal", "Visualização de Motorista", "Motorista", "apresentacao.motorista.", "persistencia.MotoristaDao", "service.MotoristaService");
     
     private String principal;
     private String tituloGrid;

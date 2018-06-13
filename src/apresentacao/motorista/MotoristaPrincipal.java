@@ -1,4 +1,4 @@
-package apresentacao.passageiro;
+package apresentacao.motorista;
 
 import apresentacao.Dialogo_ERRO;
 import apresentacao.TelaLogin;
@@ -6,25 +6,23 @@ import enuns.Legenda;
 import interfaces.IComunicaPaginaPrincipal;
 import interfaces.IObservador;
 import interfaces.IServidorObserver;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import observer.Informacao;
 import util.Fabrica;
 
-public class PassageiroPrincipal extends JFrame implements IObservador, IComunicaPaginaPrincipal{
+public class MotoristaPrincipal extends javax.swing.JFrame implements IObservador, IComunicaPaginaPrincipal{
 
     private Informacao informacao = new Informacao();
     private IServidorObserver servidorObserver;
-    private Legenda legenda = Legenda.PASSAGEIRO;
-
-    public PassageiroPrincipal(){
+    private Legenda legenda = Legenda.MOTORISTA;
+    
+    public MotoristaPrincipal() {
         initComponents();
         JInternalFrame tela = new TelaLogin(jDesktopPane, this, legenda);
         jDesktopPane.add(tela);
         tela.setVisible(true);
     }
-    
-    public PassageiroPrincipal(IServidorObserver servidorObserver) {
+    public MotoristaPrincipal(IServidorObserver servidorObserver) {
         this();
         this.servidorObserver = servidorObserver;
         this.servidorObserver.incluirNaRede(this);
@@ -41,15 +39,17 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
         jMenuSair = new javax.swing.JMenu();
         jMenuItemSair = new javax.swing.JMenuItem();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
         javax.swing.GroupLayout jDesktopPaneLayout = new javax.swing.GroupLayout(jDesktopPane);
         jDesktopPane.setLayout(jDesktopPaneLayout);
         jDesktopPaneLayout.setHorizontalGroup(
             jDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 548, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         jDesktopPaneLayout.setVerticalGroup(
             jDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 325, Short.MAX_VALUE)
+            .addGap(0, 269, Short.MAX_VALUE)
         );
 
         jMenuCadastro.setText("Cadastro");
@@ -111,7 +111,7 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
     private void jMenuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSairActionPerformed
         this.dispose();
     }//GEN-LAST:event_jMenuItemSairActionPerformed
-    
+
     @Override
     public void atualiza(Informacao informacao) {
         this.informacao = informacao;
@@ -128,7 +128,7 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
         jMenuCadastro.setEnabled(x);
         jMenuSair.setEnabled(x);
     }
-
+    
 //    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -143,20 +143,20 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(PassageiroPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(MotoristaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(PassageiroPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(MotoristaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(PassageiroPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(MotoristaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(PassageiroPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(MotoristaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
 //        //</editor-fold>
 //
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new PassageiroPrincipal().setVisible(true);
+//                new MotoristaPrincipal().setVisible(true);
 //            }
 //        });
 //    }

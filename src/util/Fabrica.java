@@ -19,6 +19,8 @@ public class Fabrica {
         switch(legenda){
             case PASSAGEIRO:
                 return new PassageiroCadastro(legenda, pane, paginaPrincipal);
+//            case MOTORISTA:
+//                return new MotoristaCadastro(legenda, pane, paginaPrincipal);
             default:
                 return null;
         }
