@@ -1,18 +1,40 @@
 package apresentacao.motorista;
 
 import apresentacao.Dialogo_ERRO;
+import apresentacao.Dialogo_Sucesso;
+import apresentacao.TelaLogin;
+import enuns.Legenda;
 import enuns.Sexo;
+import interfaces.IComunicaPaginaPrincipal;
 import java.util.Arrays;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import model.Endereco;
 import model.Motorista;
-import model.Passageiro;
 import model.Veiculo;
+import service.MotoristaService;
 import util.Ultilidades;
 
 public class MotoristaCadastro extends javax.swing.JInternalFrame {
 
-    public MotoristaCadastro() {
+    private Legenda legenda;
+    private JDesktopPane principal;
+    private IComunicaPaginaPrincipal paginaPrincipal;
+    private Motorista motorista;
+    
+    public MotoristaCadastro(Legenda legenda, JDesktopPane principal, IComunicaPaginaPrincipal paginaPrincipal) {
         initComponents();
+        this.legenda = legenda;
+        this.principal = principal;
+        this.paginaPrincipal = paginaPrincipal;
+    }
+    public MotoristaCadastro(Legenda legenda, JDesktopPane principal, IComunicaPaginaPrincipal paginaPrincipal, Motorista motorista) {
+        initComponents();
+        this.legenda = legenda;
+        this.principal = principal;
+        this.paginaPrincipal = paginaPrincipal;
+        this.motorista = motorista;
+        this.preencherTela(motorista);
     }
 
     @SuppressWarnings("unchecked")
@@ -535,9 +557,9 @@ public class MotoristaCadastro extends javax.swing.JInternalFrame {
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         try {
             this.validaCampos();
-            Passageiro passageiro = this.printTela();
+            Motorista motorista = this.printTela();
 
-            new PassageiroService().salvar(passageiro);
+            new MotoristaService().salvar(motorista);
             Dialogo_Sucesso.dialogo_Sucesso(principal, "Dados Inseridos com sucesso!");
             this.limparTela();
         } catch (Exception e) {

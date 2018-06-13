@@ -1,5 +1,6 @@
 package apresentacao.principal;
 
+import apresentacao.motorista.MotoristaPrincipal;
 import apresentacao.passageiro.PassageiroPrincipal;
 import interfaces.IObservador;
 import interfaces.IServidorObserver;
@@ -283,7 +284,9 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
 
     private void jButtonMotoristaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMotoristaActionPerformed
         try {
-            
+            MotoristaPrincipal janela = new MotoristaPrincipal(this);
+            janela.setVisible(true);
+            janela.setLocationRelativeTo(null);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro no Servidor", 
                     JOptionPane.ERROR_MESSAGE);
