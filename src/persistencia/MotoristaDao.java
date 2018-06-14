@@ -108,7 +108,7 @@ public class MotoristaDao extends GenericDao<Motorista> {
                     + "id_endereco = ? ,"
                     + "sexo = ? ,"
                     + "cnh = ? ,"
-                    + "statusMotorista = ? ,"
+                    + "status_motorista = ? ,"
                     + "id_veiculo = ?"
                     + "WHERE id = ?;";
             this.inserir_alterar(t, con, sql);

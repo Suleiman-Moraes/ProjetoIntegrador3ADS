@@ -57,8 +57,9 @@ public class PassageiroDao extends GenericDao<Passageiro>{
         Connection con = Conexao.getConexao();
         con.setAutoCommit(false);
         try {
-            String sql = "instrucao sql";
-            String curral = "SELECT currval('squencia');";
+            String sql = "INSERT INTO passageiro (nome, cpf, telefone, email, login, senha, data_nascimento, sexo, status_passageiro, id_endereco)"
+                    + " VALUES (?,?,?,?,?,?,?,?,?)";
+            String curral = "SELECT currval('passageiro_id_seqa');";
             this.inserir_alterar(t, con, sql, curral);
             con.commit();
         }catch(Exception e){
@@ -72,7 +73,8 @@ public class PassageiroDao extends GenericDao<Passageiro>{
         Connection con = Conexao.getConexao();
         con.setAutoCommit(false);
         try {
-            String sql = "instrucao sql";
+            String sql = "DELETE FROM passageiro"
+                    + "WHERE id =  ?";
             
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, (int)object[0]);
@@ -90,7 +92,18 @@ public class PassageiroDao extends GenericDao<Passageiro>{
         Connection con = Conexao.getConexao();
         con.setAutoCommit(false);
         try {
-            String sql = "instrucao sql";
+            String sql = "UPDATE passageiro SET"
+                    + "nome = ? ,"
+                    + "cpf = ? ,"
+                    + "telefone = ? ,"
+                    + "email = ? ,"
+                    + "login = ? ,"
+                    + "senha = ? ,"
+                    + "data_nascimento = ? ,"
+                    + "sexo = ? ,"
+                    + "status_passageiro = ? ,"
+                    + "id_endereco = ?"                    
+                    + "WHERE id = ?;";
             this.inserir_alterar(t, con, sql);
             con.commit();
         } catch (Exception e) {
@@ -104,8 +117,8 @@ public class PassageiroDao extends GenericDao<Passageiro>{
         try {
             Connection con = util.Conexao.getConexao();
             List<Passageiro> lista = new ArrayList<>();
-            String condicao = "";//haha vai ter q concatenar na mão kkk
-            lista = this.visualizar(con, "Nome da tabela", condicao);
+            String condicao = "AND id = ";//haha vai ter q concatenar na mão kkk
+            lista = this.visualizar(con, "passageiro", condicao);
             return lista.get(0);
         } catch (Exception e) {
             return null;
@@ -116,7 +129,7 @@ public class PassageiroDao extends GenericDao<Passageiro>{
     public List<Passageiro> visualizarAll() throws SQLException {
         try {
             Connection con = util.Conexao.getConexao();
-            return this.visualizar(con, "Nome da tabela", "");
+            return this.visualizar(con, "passageiro", "");
         } catch (Exception e) {
             return null;
         }
@@ -125,7 +138,7 @@ public class PassageiroDao extends GenericDao<Passageiro>{
     public List<Passageiro> bucarPassageirosPassandoParametros(String... condicao) throws SQLException {
         try {
             Connection con = util.Conexao.getConexao();
-            return this.visualizar(con, "Nome da tabela", condicao);
+            return this.visualizar(con, "passageiro", condicao);
         } catch (Exception e) {
             return null;
         }

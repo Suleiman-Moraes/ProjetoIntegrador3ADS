@@ -14,8 +14,8 @@ public class VeiculoDao extends GenericDao<Veiculo> {
     @Override
     protected Veiculo devolverObjeto(ResultSet rs) throws SQLException {
         while (rs.next()) {
-            return new Veiculo(rs.getInt(""), rs.getString(""), rs.getString(""),
-                    rs.getString(""), rs.getInt(""), rs.getString(""));
+            return new Veiculo(rs.getInt("id"), rs.getString("modelo"), rs.getString("marca"),
+                    rs.getString("cor"), rs.getInt("assentos"), rs.getString("placa"));
         }
         return null;
     }
@@ -45,8 +45,9 @@ public class VeiculoDao extends GenericDao<Veiculo> {
         Connection con = Conexao.getConexao();
         con.setAutoCommit(false);
         try {
-            String sql = "instrucao sql";
-            String curral = "SELECT currval('squencia');";
+            String sql = "INSERT INTO veiculo (modelo, marca, cor, assentos, placa)"
+                    + " VALUES (?,?,?,?,?)";
+            String curral = "SELECT currval('veiculo_id_seq');";
             this.inserir_alterar(t, con, sql, curral);
             con.commit();
         } catch (Exception e) {
@@ -60,7 +61,8 @@ public class VeiculoDao extends GenericDao<Veiculo> {
         Connection con = Conexao.getConexao();
         con.setAutoCommit(false);
         try {
-            String sql = "instrucao sql";
+            String sql =  "DELETE FROM veiculo"
+                    + "WHERE id =  ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, (int) object[0]);
@@ -78,7 +80,13 @@ public class VeiculoDao extends GenericDao<Veiculo> {
         Connection con = Conexao.getConexao();
         con.setAutoCommit(false);
         try {
-            String sql = "instrucao sql";
+            String sql = "UPDATE veiculo SET"
+                    + "modelo = ? ,"
+                    + "marca = ? ,"
+                    + "cor = ? ,"
+                    + "assentos = ? ,"
+                    + "placa = ?"                    
+                    + "WHERE id = ?;";
             this.inserir_alterar(t, con, sql);
             con.commit();
         } catch (Exception e) {
@@ -92,8 +100,8 @@ public class VeiculoDao extends GenericDao<Veiculo> {
         try {
             Connection con = util.Conexao.getConexao();
             List<Veiculo> lista = new ArrayList<>();
-            String condicao = "";
-            lista = this.visualizar(con, "Nome da tabela", condicao);
+            String condicao = "AND id = ";
+            lista = this.visualizar(con, "veiculo", condicao);
             return lista.get(0);
         } catch (Exception e) {
             return null;
@@ -104,7 +112,7 @@ public class VeiculoDao extends GenericDao<Veiculo> {
     public List<Veiculo> visualizarAll() throws SQLException {
         try {
             Connection con = util.Conexao.getConexao();
-            return this.visualizar(con, "Nome da tabela", "");
+            return this.visualizar(con, "veiculo", "");
         } catch (Exception e) {
             return null;
         }
