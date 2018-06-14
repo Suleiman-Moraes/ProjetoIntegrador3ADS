@@ -18,12 +18,12 @@ public class PassageiroDao extends GenericDao<Passageiro>{
     @Override
     protected Passageiro devolverObjeto(ResultSet rs) throws SQLException {
         while (rs.next()) {
-            return new Passageiro(rs.getInt(""), rs.getString(""), rs.getString(""), 
-                    rs.getString(""), rs.getString(""), rs.getString(""), rs.getString(""), 
-                    Ultilidades.pegaDataDevolveData(rs.getDate("")), 
-                    new EnderecoDao().visualizarUm(rs.getInt("")), 
-                    (Sexo)Fabrica.getInstance(Sexo.values(), rs.getString("")), 
-                    (StatusPassageiro)Fabrica.getInstance(StatusPassageiro.values(), rs.getString("")));//Incompleto
+            return new Passageiro(rs.getInt("id"), rs.getString("nome"), rs.getString("cpf"), 
+                    rs.getString("telefone"), rs.getString("email"), rs.getString("login"), rs.getString("senha"), 
+                    Ultilidades.pegaDataDevolveData(rs.getDate("data_nascimento")), 
+                    new EnderecoDao().visualizarUm(rs.getInt("sexo")), 
+                    (Sexo)Fabrica.getInstance(Sexo.values(), rs.getString("status_passageiro")), 
+                    (StatusPassageiro)Fabrica.getInstance(StatusPassageiro.values(), rs.getString("id_endereco")));//Incompleto
         }
         return null;
     }

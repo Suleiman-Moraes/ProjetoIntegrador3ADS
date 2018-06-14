@@ -12,7 +12,8 @@ public class Motorista extends DadosBasicos{
 
     //Construtor
     public Motorista() {}
-    public Motorista(int id, String nome, String cpf, String telefone, String email, String login, String senha, Date dataDeNascimento, Endereco endereco, Sexo sexo, String cnh, StatusMotorista statusMotorista, Veiculo veiculo) {
+    public Motorista(int id, String nome, String cpf, String telefone, String email, String login, String senha, Date dataDeNascimento,
+            Endereco endereco, Sexo sexo, String cnh, StatusMotorista statusMotorista, Veiculo veiculo) {
         super(id, nome, cpf, telefone, email, login, senha, dataDeNascimento, endereco, sexo);
         this.cnh = cnh;
         this.statusMotorista = statusMotorista;

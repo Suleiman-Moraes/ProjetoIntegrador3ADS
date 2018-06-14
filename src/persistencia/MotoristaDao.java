@@ -18,14 +18,14 @@ public class MotoristaDao extends GenericDao<Motorista> {
     @Override
     protected Motorista devolverObjeto(ResultSet rs) throws SQLException {
         while (rs.next()) {
-            return new Motorista(rs.getInt(""), rs.getString(""), rs.getString(""), 
-                    rs.getString(""), rs.getString(""), rs.getString(""), rs.getString(""), 
-                    Ultilidades.pegaDataDevolveData(rs.getDate("")),
-                    new EnderecoDao().visualizarUm(rs.getInt("")), 
-                    (Sexo)Fabrica.getInstance(Sexo.values(), rs.getString("")),
-                    rs.getString(""),
-                    (StatusMotorista)Fabrica.getInstance(StatusMotorista.values(), rs.getString("")), 
-                    new VeiculoDao().visualizarUm(rs.getInt("")));
+            return new Motorista(rs.getInt("id"), rs.getString("nome"), rs.getString("cpf"), 
+                    rs.getString("telefone"), rs.getString("email"), rs.getString("login"), rs.getString("senha"), 
+                    Ultilidades.pegaDataDevolveData(rs.getDate("data_nascimento")),
+                    new EnderecoDao().visualizarUm(rs.getInt("id_endereco")), 
+                    (Sexo)Fabrica.getInstance(Sexo.values(), rs.getString("sexo")),
+                    rs.getString("cnh"),
+                    (StatusMotorista)Fabrica.getInstance(StatusMotorista.values(), rs.getString("status_motorista")), 
+                    new VeiculoDao().visualizarUm(rs.getInt("id_veiculo")));
         }
         return null;
     }
@@ -62,8 +62,10 @@ public class MotoristaDao extends GenericDao<Motorista> {
         Connection con = Conexao.getConexao();
         con.setAutoCommit(false);
         try {
-            String sql = "instrucao sql";
-            String curral = "SELECT currval('squencia');";
+            String sql = "INSERT INTO motorista (nome, cpf, telefone, email, login, senha, data_nascimento, id_endereco, sexo, cnh, status_motorista, id_veiculo)"
+                    + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+            
+            String curral = "SELECT currval('motorista_id_seq') as id";
             this.inserir_alterar(t, con, sql, curral);
             con.commit();
         } catch (SQLException e) {
@@ -76,7 +78,8 @@ public class MotoristaDao extends GenericDao<Motorista> {
         Connection con = Conexao.getConexao();
         con.setAutoCommit(false);
         try {
-            String sql = "instrucao sql";
+            String sql = "DELETE FROM motorista"
+                    + "WHERE id =  ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, (int) object[0]);
@@ -93,7 +96,20 @@ public class MotoristaDao extends GenericDao<Motorista> {
         Connection con = Conexao.getConexao();
         con.setAutoCommit(false);
         try {
-            String sql = "instrucao sql";
+            String sql = "UPDATE motorista SET"
+                    + "nome = ? , "
+                    + "cpf = ? ,"
+                    + "telefone = ? ,"
+                    + "email = ? ,"
+                    + "login = ? ,"
+                    + "senha = ? ,"
+                    + "data_nascimento = ? ,"
+                    + "id_endereco = ? ,"
+                    + "sexo = ? ,"
+                    + "cnh = ? ,"
+                    + "statusMotorista = ? ,"
+                    + "id_veiculo = ?"
+                    + "WHERE id = ?;";
             this.inserir_alterar(t, con, sql);
             con.commit();
         } catch (Exception e) {
@@ -107,8 +123,9 @@ public class MotoristaDao extends GenericDao<Motorista> {
         try {
             Connection con = util.Conexao.getConexao();
             List<Motorista> lista = new ArrayList<>();
-            String condicao = "";//haha vai ter q concatenar na mão kkk
-            lista = this.visualizar(con, "Nome da tabela", condicao);
+            String condicao = "AND id = "+(int)object[0];
+                    ;//haha vai ter q concatenar na mão kkk
+            lista = this.visualizar(con, "motorista", condicao);
             return lista.get(0);
         } catch (Exception e) {
             return null;
@@ -118,8 +135,10 @@ public class MotoristaDao extends GenericDao<Motorista> {
     @Override
     public List<Motorista> visualizarAll() throws SQLException {
         try {
+//            String sql = "SELECT id, nome, cpf, telefone, login, senha, data_nascimento, endereco, sexo, cnh, status_motorista, veiculo"
+//                    + "FROM motorista ORDER BY nome;";
             Connection con = util.Conexao.getConexao();
-            return this.visualizar(con, "Nome da tabela", "");
+            return this.visualizar(con, "motorista", "");
         } catch (Exception e) {
             return null;
         }

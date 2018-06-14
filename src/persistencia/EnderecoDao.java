@@ -14,8 +14,8 @@ public class EnderecoDao extends GenericDao<Endereco>{
     @Override
     protected Endereco devolverObjeto(ResultSet rs) throws SQLException {
         while (rs.next()) {
-            return new Endereco(rs.getInt(""), rs.getString(""), rs.getString(""), 
-                    rs.getString(""), rs.getString(""), rs.getString(""), rs.getString(""));//Incompleto
+            return new Endereco(rs.getInt("id"), rs.getString("rua"), rs.getString("quadra"), 
+                    rs.getString("lote"), rs.getString("setor"), rs.getString("cep"), rs.getString("complemento"));//Incompleto
         }
         return null;
     }
@@ -46,8 +46,10 @@ public class EnderecoDao extends GenericDao<Endereco>{
         Connection con = Conexao.getConexao();
         con.setAutoCommit(false);
         try {
-            String sql = "instrucao sql";
-            String curral = "SELECT currval('squencia');";
+            String sql = "INSERT INTO endereco(rua, quadra, lote, setor, cep, complemento)"
+                    + " VALUES (?,?,?,?,?,?)";
+            
+            String curral = "SELECT currval('endereco_id_seq') as id;";
             this.inserir_alterar(t, con, sql, curral);
             con.commit();
         }catch(Exception e){
@@ -61,7 +63,8 @@ public class EnderecoDao extends GenericDao<Endereco>{
         Connection con = Conexao.getConexao();
         con.setAutoCommit(false);
         try {
-            String sql = "instrucao sql";
+            String sql = "DELETE FROM endereco"
+                    + "WHERE id =  ?";
             
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, (int)object[0]);
@@ -79,7 +82,14 @@ public class EnderecoDao extends GenericDao<Endereco>{
         Connection con = Conexao.getConexao();
         con.setAutoCommit(false);
         try {
-            String sql = "instrucao sql";
+            String sql = "UPDATE endereco SET"
+                    + "rua = ? ,"
+                    + "quadra = ? ,"
+                    + "lote = ? ,"
+                    + "setor = ? ,"
+                    + "cep = ? ,"
+                    + "complemento = ?"
+                    + "WHERE id = ?;";
             this.inserir_alterar(t, con, sql);
             con.commit();
         } catch (Exception e) {
@@ -93,8 +103,8 @@ public class EnderecoDao extends GenericDao<Endereco>{
         try {
             Connection con = util.Conexao.getConexao();
             List<Endereco> lista = new ArrayList<>();
-            String condicao = "";//haha vai ter q concatenar na mão kkk
-            lista = this.visualizar(con, "Nome da tabela", condicao);
+            String condicao = "AND id = ";//haha vai ter q concatenar na mão kkk
+            lista = this.visualizar(con, "endereco", condicao);
             return lista.get(0);
         } catch (Exception e) {
             return null;
@@ -105,7 +115,7 @@ public class EnderecoDao extends GenericDao<Endereco>{
     public List<Endereco> visualizarAll() throws SQLException {
         try {
             Connection con = util.Conexao.getConexao();
-            return this.visualizar(con, "Nome da tabela", "");
+            return this.visualizar(con, "endereco", "");
         } catch (Exception e) {
             return null;
         }
