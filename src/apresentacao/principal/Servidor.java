@@ -2,6 +2,7 @@ package apresentacao.principal;
 
 import apresentacao.motorista.MotoristaPrincipal;
 import apresentacao.passageiro.PassageiroPrincipal;
+import enuns.StatusMotorista;
 import enuns.StatusPassageiro;
 import interfaces.IDesmaterializar;
 import interfaces.IObservador;
@@ -22,7 +23,7 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
     private Informacao informacao;
     private final PassageiroService passageiroService;
     private final MotoristaService motoristaService;
-    private String[] colunaPassageiro = {"Código", "Nome", "CPF", "Telefone", "Sexo"};
+    private String[] coluna = {"Código", "Nome", "CPF", "Telefone", "Sexo"};
     
     public Servidor() {
         this.passageiroService = new PassageiroService();
@@ -406,6 +407,7 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
     private void atualizaGrids(){
         try {
             this.popularGridPassageiro();
+            this.popularGrid(jTablePassageiroOnline, motoristaService.bucarMotoristasPassandoStatusEnum(StatusMotorista.ONLINE), this.coluna);
 //            DefaultTableModel model = new DefaultTableModel();
 //            model.setNumRows(0);
 //            Iterator online = passageiroService.bucarPassageirosPassandoStatusEnum(StatusPassageiro.ONLINE);
@@ -432,11 +434,10 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
     
     private void popularGridPassageiro(){
         try {
-            Iterator a = passageiroService.bucarPassageirosPassandoStatusEnum(StatusPassageiro.ONLINE);
-            Iterator b = passageiroService.bucarPassageirosPassandoStatusEnum(StatusPassageiro.SOLICITOU_VIAGEM);
-            this.popularGrid(jTablePassageiroOnline, a, this.colunaPassageiro);
-            this.popularGrid(jTablePassageiroSolicitouViagem, b, this.colunaPassageiro);
+            this.popularGrid(jTablePassageiroOnline, passageiroService.bucarPassageirosPassandoStatusEnum(StatusPassageiro.ONLINE), this.coluna);
+            this.popularGrid(jTablePassageiroSolicitouViagem, passageiroService.bucarPassageirosPassandoStatusEnum(StatusPassageiro.SOLICITOU_VIAGEM), this.coluna);
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro no Servidor", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -446,7 +447,7 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
             model.setNumRows(0);
             while (iterator.hasNext()) {
                 IDesmaterializar x = (IDesmaterializar) iterator.next();
-                model.addRow(popularGridPassageiro(x.desmaterializar()));
+                model.addRow(popularGridColuna(x.desmaterializar()));
             }
             model.setColumnIdentifiers(coluna);
             jTable.setModel(model);
@@ -455,7 +456,7 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
         }
     }
     
-    private String[] popularGridPassageiro(String[] vet){
+    private String[] popularGridColuna(String[] vet){
         String linha[] = new String[5];
         linha[0] = vet[0];
         linha[1] = vet[1];
@@ -523,7 +524,7 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
         DefaultTableModel model = new DefaultTableModel();
         model.setNumRows(0);
         model.addRow(new String[5]);
-        model.setColumnIdentifiers(this.colunaPassageiro);
+        model.setColumnIdentifiers(this.coluna);
         jTablePassageiroOnline.setModel(model);
     }
 }

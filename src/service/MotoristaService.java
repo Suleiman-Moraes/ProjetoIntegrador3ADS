@@ -34,7 +34,7 @@ public class MotoristaService implements ICrudService<Motorista>{
         return new MotoristaDao().visualizarAll().iterator();
     }
     
-    public Iterator<Motorista> bucarPassageirosPassandoStatusEnum(StatusMotorista statusMotorista) throws SQLException {
+    public Iterator<Motorista> bucarMotoristasPassandoStatusEnum(StatusMotorista statusMotorista) throws SQLException {
         try {
             String condicao = " AND status_motorista = ";
             condicao += statusMotorista.getDescricao();
