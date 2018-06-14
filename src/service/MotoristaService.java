@@ -1,5 +1,6 @@
 package service;
 
+import enuns.StatusMotorista;
 import interfaces.ICrudService;
 import java.sql.SQLException;
 import java.util.Iterator;
@@ -31,5 +32,15 @@ public class MotoristaService implements ICrudService<Motorista>{
     @Override
     public Iterator<Motorista> visualizarAll() throws SQLException {
         return new MotoristaDao().visualizarAll().iterator();
+    }
+    
+    public Iterator<Motorista> bucarPassageirosPassandoStatusEnum(StatusMotorista statusMotorista) throws SQLException {
+        try {
+            String condicao = " AND status_motorista = ";
+            condicao += statusMotorista.getDescricao();
+            return new MotoristaDao().bucarMotoristasPassandoParametros(condicao).iterator();
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

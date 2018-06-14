@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Motorista;
+import model.Passageiro;
 import util.Conexao;
 import util.Fabrica;
 import util.Ultilidades;
@@ -139,6 +140,15 @@ public class MotoristaDao extends GenericDao<Motorista> {
 //                    + "FROM motorista ORDER BY nome;";
             Connection con = util.Conexao.getConexao();
             return this.visualizar(con, "motorista", "");
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public List<Motorista> bucarMotoristasPassandoParametros(String... condicao) throws SQLException {
+        try {
+            Connection con = util.Conexao.getConexao();
+            return this.visualizar(con, "motorista", condicao);
         } catch (Exception e) {
             return null;
         }
