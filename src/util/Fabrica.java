@@ -16,6 +16,8 @@ public class Fabrica {
         return null;
     }
     
+    
+    
     public static Object getInstance(Legenda legenda, JDesktopPane pane, IComunicaPaginaPrincipal paginaPrincipal){
         switch(legenda){
             case PASSAGEIRO:
