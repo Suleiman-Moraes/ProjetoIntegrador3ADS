@@ -8,14 +8,16 @@ import interfaces.IObservador;
 import interfaces.IServidorObserver;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import model.Passageiro;
 import observer.Informacao;
-import util.Fabrica;
+import service.PassageiroService;
 
 public class PassageiroPrincipal extends JFrame implements IObservador, IComunicaPaginaPrincipal{
 
     private Informacao informacao = new Informacao();
     private IServidorObserver servidorObserver;
     private Legenda legenda = Legenda.PASSAGEIRO;
+    private Passageiro passageiro = null;
 
     public PassageiroPrincipal(){
         initComponents();
@@ -27,7 +29,6 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
     public PassageiroPrincipal(IServidorObserver servidorObserver) {
         this();
         this.servidorObserver = servidorObserver;
-        this.servidorObserver.incluirNaRede(this);
     }
 
     @SuppressWarnings("unchecked")
@@ -111,7 +112,7 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
 
     private void jMenuItemAlterarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAlterarDadosActionPerformed
         try {
-            JInternalFrame janela = (JInternalFrame) Fabrica.getInstance(legenda, jDesktopPane, this);
+            JInternalFrame janela = new PassageiroCadastro(legenda, jDesktopPane, this, passageiro);
             this.jDesktopPane.add(janela);
             janela.setVisible(true);
         } catch (Exception e) {
@@ -129,7 +130,6 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
     }//GEN-LAST:event_formWindowClosing
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        System.out.println("aki");
         this.servidorObserver.retirarDaRede(this);
         this.dispose();
     }//GEN-LAST:event_formWindowClosed
@@ -146,9 +146,16 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
     }
     
     @Override
-    public void comunicaPaginaPrincipal(boolean x) {
+    public void comunicaPaginaPrincipal(boolean x, String login, String senha)  throws Exception{
+        this.passageiro = new PassageiroService().buscarPassandoLoginSenha(login, senha).get(0);
+        this.servidorObserver.incluirNaRede(this);
         jMenuCadastro.setEnabled(x);
         jMenuSair.setEnabled(x);
+    }
+    
+    @Override
+    public String tipoStatusEnum() {
+        return passageiro.getStatusPassageiro().getDescricao();
     }
 
 //    public static void main(String args[]) {
@@ -191,4 +198,5 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
     private javax.swing.JMenuItem jMenuItemSair;
     private javax.swing.JMenu jMenuSair;
     // End of variables declaration//GEN-END:variables
+
 }

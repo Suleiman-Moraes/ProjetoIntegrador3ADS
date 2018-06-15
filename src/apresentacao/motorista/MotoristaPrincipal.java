@@ -25,7 +25,6 @@ public class MotoristaPrincipal extends javax.swing.JFrame implements IObservado
     public MotoristaPrincipal(IServidorObserver servidorObserver) {
         this();
         this.servidorObserver = servidorObserver;
-        this.servidorObserver.incluirNaRede(this);
     }
 
     @SuppressWarnings("unchecked")
@@ -127,6 +126,7 @@ public class MotoristaPrincipal extends javax.swing.JFrame implements IObservado
     
     @Override
     public void comunicaPaginaPrincipal(boolean x) {
+        this.servidorObserver.incluirNaRede(this);
         jMenuCadastro.setEnabled(x);
         jMenuSair.setEnabled(x);
     }

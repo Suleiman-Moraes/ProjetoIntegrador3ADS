@@ -1,10 +1,12 @@
 package apresentacao;
 
 import enuns.Legenda;
+import interfaces.BuscarPassandoLoginSenha;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import interfaces.IComunicaPaginaPrincipal;
+import java.util.Arrays;
 import util.Fabrica;
 
 public class TelaLogin extends JInternalFrame {
@@ -168,10 +170,18 @@ public class TelaLogin extends JInternalFrame {
 
     private void jButtonAvancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAvancarActionPerformed
         try {
-            paginaPrincipal.comunicaPaginaPrincipal(true);
-            dispose();
+            String login = jTextFieldLogin.getText().trim();
+            String senha = Arrays.toString(jPasswordFieldSenha.getPassword());
+            BuscarPassandoLoginSenha x = Fabrica.getInstance(legenda);
+            if(x.buscarPassandoLoginSenha(login, senha).size() > 0){
+                paginaPrincipal.comunicaPaginaPrincipal(true, login, senha);
+                dispose();
+            }
+            else{
+                Dialogo_ERRO.dialogo_ERRO(pane, "Login ou Senha Incorretos.");
+            }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "");
+            Dialogo_ERRO.dialogo_ERRO(pane, e.getMessage());
         }
     }//GEN-LAST:event_jButtonAvancarActionPerformed
 

@@ -1,13 +1,15 @@
 package service;
 
 import enuns.StatusPassageiro;
+import interfaces.BuscarPassandoLoginSenha;
 import interfaces.ICrudService;
 import java.sql.SQLException;
 import java.util.Iterator;
+import java.util.List;
 import model.Passageiro;
 import persistencia.PassageiroDao;
 
-public class PassageiroService implements ICrudService<Passageiro>{
+public class PassageiroService implements ICrudService<Passageiro>, BuscarPassandoLoginSenha<Passageiro>{
 
     @Override
     public void salvar(Passageiro t) throws Exception {
@@ -39,6 +41,20 @@ public class PassageiroService implements ICrudService<Passageiro>{
             String condicao = " AND status_passageiro = ";
             condicao += statusPassageiro.getDescricao();
             return new PassageiroDao().bucarPassageirosPassandoParametros(condicao).iterator();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    @Override
+    public List<Passageiro> buscarPassandoLoginSenha(String login, String senha) throws SQLException {
+        try {
+            StringBuilder tudo = new StringBuilder("");
+            tudo.append(" AND login = ");
+            tudo.append(login);
+            tudo.append(" AND senha = ");
+            tudo.append(senha);
+            return new PassageiroDao().bucarPassageirosPassandoParametros(tudo.toString());
         } catch (Exception e) {
             return null;
         }
