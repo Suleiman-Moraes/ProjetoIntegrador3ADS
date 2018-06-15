@@ -10,6 +10,9 @@ public class EnderecoService implements ICrudService<Endereco>{
 
     @Override
     public void salvar(Endereco t) throws Exception {
+        if(!ValidacaoComum.validaCep(t.getCep())){
+            throw new Exception("CEP Inválido.");
+        }
         if(t.getId() != 0){
             new EnderecoDao().alterar(t);
         }

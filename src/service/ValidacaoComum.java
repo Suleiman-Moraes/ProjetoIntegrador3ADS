@@ -10,6 +10,13 @@ import java.util.InputMismatchException;
 
 public class ValidacaoComum {
     public static boolean validaCPF(String cpf) {
+        StringBuilder tudo = new StringBuilder("");
+        for (int i = 0; i < cpf.length(); i++) {
+            if(cpf.charAt(i) != '.' && cpf.charAt(i) != '-'){
+                tudo.append(cpf.charAt(i));
+            }
+        }
+        cpf = tudo.toString();
         // considera-se erro CPF's formados por uma sequencia de numeros iguais
         if (cpf.equals("00000000000") || cpf.equals("11111111111")
                 || cpf.equals("22222222222") || cpf.equals("33333333333")
@@ -126,10 +133,7 @@ public class ValidacaoComum {
                 .withResolverStyle(ResolverStyle.STRICT);
         try {
             LocalDate date = LocalDate.parse(data, dateTimeFormatter);
-            if (strDate.compareTo(new Date(System.currentTimeMillis())) > 0) {
-                return true;
-            }
-            return false;
+            return true;
         } catch (DateTimeParseException e) {
             return false;
         }
@@ -144,7 +148,7 @@ public class ValidacaoComum {
             LocalDate date = LocalDate.parse(data, dateTimeFormatter);
             return true;
         } catch (DateTimeParseException e) {
-            throw new Exception("Data ivalida.");
+            return false;
         }
     }
     

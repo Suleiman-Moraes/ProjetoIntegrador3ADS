@@ -13,7 +13,18 @@ public class MotoristaService implements ICrudService<Motorista>, BuscarPassando
 
     @Override
     public void salvar(Motorista t) throws Exception {
-        
+        if(!ValidacaoComum.validaCPF(t.getCpf())){
+            throw new Exception("CPF Inválido.");
+        }
+        if(!ValidacaoComum.isDateValid(t.getDataDeNascimento())){
+            throw new Exception("Data de nascimento Inválida.");
+        }
+        if(!ValidacaoComum.validaCNH(t.getCnh())){
+            throw new Exception("CNH Inválida.");
+        }
+        if(!ValidacaoComum.validaCep(t.getEndereco().getCep())){
+            throw new Exception("CEP Inválido.");
+        }
         if (t.getId() != 0) {
             new MotoristaDao().alterar(t);
         } else {

@@ -7,7 +7,6 @@ import enuns.Legenda;
 import enuns.Sexo;
 import enuns.StatusPassageiro;
 import interfaces.IComunicaPaginaPrincipal;
-import java.util.Arrays;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JTextField;
@@ -15,6 +14,7 @@ import model.Endereco;
 import model.Passageiro;
 import service.EnderecoService;
 import service.PassageiroService;
+import service.ValidacaoComum;
 import util.Ultilidades;
 
 public class PassageiroCadastro extends javax.swing.JInternalFrame {
@@ -527,6 +527,9 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
         if(jPasswordFieldSenha.getPassword().length == 0) throw new Exception("Insira Senha.");
         if(jFormattedTextFieldDataNascimento.getText().trim().length() != 10){
             throw new Exception("Insira Data de Nascimento.");
+        }
+        if(!ValidacaoComum.isDateValid(jFormattedTextFieldDataNascimento.getText().trim())){
+            throw new Exception("Data de Nascimento Inválida.");
         }
         if(!jRadioButtonHomem.isSelected() && !jRadioButtonMulher.isSelected()){
             throw new Exception("Selecione Sexo.");

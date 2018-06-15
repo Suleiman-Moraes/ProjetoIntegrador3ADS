@@ -13,6 +13,15 @@ public class PassageiroService implements ICrudService<Passageiro>, BuscarPassan
 
     @Override
     public void salvar(Passageiro t) throws Exception {
+        if(!ValidacaoComum.validaCPF(t.getCpf())){
+            throw new Exception("CPF Inválido.");
+        }
+        if(!ValidacaoComum.isDateValid(t.getDataDeNascimento())){
+            throw new Exception("Data de nascimento Inválida.");
+        }
+        if(!ValidacaoComum.validaCep(t.getEndereco().getCep())){
+            throw new Exception("CEP Inválido.");
+        }
         if(t.getId() != 0){
             new PassageiroDao().alterar(t);
         }

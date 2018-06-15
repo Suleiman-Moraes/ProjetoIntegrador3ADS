@@ -15,6 +15,7 @@ import model.Motorista;
 import model.Veiculo;
 import service.EnderecoService;
 import service.MotoristaService;
+import service.ValidacaoComum;
 import util.Ultilidades;
 
 public class MotoristaCadastro extends javax.swing.JInternalFrame {
@@ -633,6 +634,9 @@ public class MotoristaCadastro extends javax.swing.JInternalFrame {
         if(jPasswordFieldSenha.getPassword().length == 0) throw new Exception("Insira Senha.");
         if(jFormattedTextFieldDataNascimento.getText().trim().length() != 10){
             throw new Exception("Insira Data de Nascimento.");
+        }
+        if(!ValidacaoComum.isDateValid(jFormattedTextFieldDataNascimento.getText().trim())){
+            throw new Exception("Data de Nascimento Inválida.");
         }
         if(!jRadioButtonHomem.isSelected() && !jRadioButtonMulher.isSelected()){
             throw new Exception("Selecione Sexo.");
