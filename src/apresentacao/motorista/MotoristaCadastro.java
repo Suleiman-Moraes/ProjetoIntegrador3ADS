@@ -5,6 +5,7 @@ import apresentacao.Dialogo_Sucesso;
 import apresentacao.TelaLogin;
 import enuns.Legenda;
 import enuns.Sexo;
+import enuns.StatusMotorista;
 import interfaces.IComunicaPaginaPrincipal;
 import java.util.Arrays;
 import javax.swing.JDesktopPane;
@@ -12,6 +13,7 @@ import javax.swing.JInternalFrame;
 import model.Endereco;
 import model.Motorista;
 import model.Veiculo;
+import service.EnderecoService;
 import service.MotoristaService;
 import util.Ultilidades;
 
@@ -559,9 +561,17 @@ public class MotoristaCadastro extends javax.swing.JInternalFrame {
             this.validaCampos();
             Motorista motorista = this.printTela();
 
+            new EnderecoService().salvar(motorista.getEndereco());
             new MotoristaService().salvar(motorista);
             Dialogo_Sucesso.dialogo_Sucesso(principal, "Dados Inseridos com sucesso!");
             this.limparTela();
+            
+            if(jTextFieldID.getText().trim().equals("")){
+                JInternalFrame tela = new TelaLogin(principal, paginaPrincipal, legenda);
+                principal.add(tela);
+                tela.setVisible(true);
+            }
+            this.dispose();
         } catch (Exception e) {
             Dialogo_ERRO.dialogo_ERRO(principal, e.getMessage());
         }
@@ -689,6 +699,7 @@ public class MotoristaCadastro extends javax.swing.JInternalFrame {
         
         motorista.setEndereco(printTelaEndereco());
         motorista.setVeiculo(printTelaVeiculo());
+        motorista.setStatusMotorista(StatusMotorista.OFFLINE);
         
         return motorista;
     }

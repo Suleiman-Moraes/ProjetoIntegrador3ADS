@@ -7,7 +7,9 @@ import interfaces.IComunicaPaginaPrincipal;
 import interfaces.IObservador;
 import interfaces.IServidorObserver;
 import javax.swing.JInternalFrame;
+import model.Motorista;
 import observer.Informacao;
+import service.MotoristaService;
 import util.Fabrica;
 
 public class MotoristaPrincipal extends javax.swing.JFrame implements IObservador, IComunicaPaginaPrincipal{
@@ -15,6 +17,7 @@ public class MotoristaPrincipal extends javax.swing.JFrame implements IObservado
     private Informacao informacao = new Informacao();
     private IServidorObserver servidorObserver;
     private Legenda legenda = Legenda.MOTORISTA; 
+    private Motorista motorista = null;
     
     public MotoristaPrincipal() {
         initComponents();
@@ -40,6 +43,11 @@ public class MotoristaPrincipal extends javax.swing.JFrame implements IObservado
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Motorista");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jDesktopPaneLayout = new javax.swing.GroupLayout(jDesktopPane);
         jDesktopPane.setLayout(jDesktopPaneLayout);
@@ -109,9 +117,26 @@ public class MotoristaPrincipal extends javax.swing.JFrame implements IObservado
     }//GEN-LAST:event_jMenuItemAlterarDadosActionPerformed
 
     private void jMenuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSairActionPerformed
+        try {
+            if(motorista != null && motorista.getId() > 0)
+                new MotoristaService().salvar(motorista);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         this.servidorObserver.retirarDaRede(this);
         this.dispose();
     }//GEN-LAST:event_jMenuItemSairActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        try {
+            if(motorista != null && motorista.getId() > 0)
+                new MotoristaService().salvar(motorista);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        this.servidorObserver.retirarDaRede(this);
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosed
 
     @Override
     public void atualiza(Informacao informacao) {
@@ -125,10 +150,16 @@ public class MotoristaPrincipal extends javax.swing.JFrame implements IObservado
     }
     
     @Override
-    public void comunicaPaginaPrincipal(boolean x) {
+    public void comunicaPaginaPrincipal(boolean x, String login, String senha)  throws Exception{
+        this.motorista = new MotoristaService().buscarPassandoLoginSenha(login, senha).get(0);
         this.servidorObserver.incluirNaRede(this);
         jMenuCadastro.setEnabled(x);
         jMenuSair.setEnabled(x);
+    }
+    
+    @Override
+    public String tipoStatusEnum() {
+        return motorista.getStatusMotorista().getDescricao();
     }
     
 //    public static void main(String args[]) {

@@ -3,6 +3,7 @@ package apresentacao.passageiro;
 import apresentacao.Dialogo_ERRO;
 import apresentacao.TelaLogin;
 import enuns.Legenda;
+import enuns.StatusPassageiro;
 import interfaces.IComunicaPaginaPrincipal;
 import interfaces.IObservador;
 import interfaces.IServidorObserver;
@@ -121,6 +122,13 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
     }//GEN-LAST:event_jMenuItemAlterarDadosActionPerformed
 
     private void jMenuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSairActionPerformed
+        this.passageiro.setStatusPassageiro(StatusPassageiro.OFFLINE);
+        try {
+            if(passageiro != null && passageiro.getId() > 0)
+                new PassageiroService().salvar(passageiro);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         this.servidorObserver.retirarDaRede(this);
         this.dispose();
     }//GEN-LAST:event_jMenuItemSairActionPerformed
