@@ -448,16 +448,15 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
             this.validaCampos();
             Passageiro passageiro = this.printTela();
             
-            new EnderecoService().salvar(passageiro.getEndereco());
             new PassageiroService().salvar(passageiro);
             Dialogo_Sucesso.dialogo_Sucesso(principal, "Dados Inseridos com sucesso!");
-            this.limparTela();
             
             if(jTextFieldID.getText().trim().equals("")){
                 JInternalFrame tela = new TelaLogin(principal, paginaPrincipal, legenda);
                 principal.add(tela);
                 tela.setVisible(true);
             }
+            this.limparTela();
             this.dispose();
         } catch (Exception e) {
             Dialogo_ERRO.dialogo_ERRO(principal, e.getMessage());
@@ -550,7 +549,13 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
     }
     
     private Passageiro printTela() throws Exception{
-        Passageiro passageiro = new Passageiro();
+        Passageiro passageiro;
+        if(this.passageiro == null){
+            passageiro = new Passageiro();
+        }
+        else{
+            passageiro = this.passageiro;
+        }
         if(!jTextFieldID.getText().trim().equals("")){
             passageiro.setId(new Integer(jTextFieldID.getText().trim()));
         }
@@ -578,7 +583,13 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
     }
     
     private Endereco printTelaEndereco(){
-        Endereco x = new Endereco();
+        Endereco x;
+        if(passageiro == null){
+            x = new Endereco();
+        }
+        else{
+            x = passageiro.getEndereco();
+        }
         
         x.setRua(jTextFieldRua.getText().trim());
         x.setQuadra(jTextFieldQuadra.getText().trim());

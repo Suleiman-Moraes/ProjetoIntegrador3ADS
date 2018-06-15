@@ -17,15 +17,12 @@ public class PassageiroDao extends GenericDao<Passageiro>{
 
     @Override
     protected Passageiro devolverObjeto(ResultSet rs) throws SQLException {
-        while (rs.next()) {
-            return new Passageiro(rs.getInt("id"), rs.getString("nome"), rs.getString("cpf"), 
-                    rs.getString("telefone"), rs.getString("email"), rs.getString("login"), rs.getString("senha"), 
-                    Ultilidades.pegaDataDevolveData(rs.getDate("data_nascimento")), 
-                    new EnderecoDao().visualizarUm(rs.getInt("sexo")), 
-                    (Sexo)Fabrica.getInstance(Sexo.values(), rs.getString("status_passageiro")), 
-                    (StatusPassageiro)Fabrica.getInstance(StatusPassageiro.values(), rs.getString("id_endereco")));//Incompleto
-        }
-        return null;
+        return new Passageiro(rs.getInt("id"), rs.getString("nome"), rs.getString("cpf"), 
+                rs.getString("telefone"), rs.getString("email"), rs.getString("login"), rs.getString("senha"), 
+                Ultilidades.pegaDataDevolveData(rs.getDate("data_nascimento")), 
+                new EnderecoDao().visualizarUm(rs.getInt("id_endereco")), 
+                (Sexo)Fabrica.getInstance(Sexo.values(), rs.getString("sexo")), 
+                (StatusPassageiro)Fabrica.getInstance(StatusPassageiro.values(), rs.getString("status_passageiro")));//Incompleto
     }
 
     @Override
@@ -44,7 +41,7 @@ public class PassageiroDao extends GenericDao<Passageiro>{
             ps.setInt(10, t.getEndereco().getId());//endereco
 
             if(t.getId() > 0){
-                ps.setInt(10, t.getId());
+                ps.setInt(11, t.getId());
             }
             
             return ps;
@@ -94,17 +91,17 @@ public class PassageiroDao extends GenericDao<Passageiro>{
         con.setAutoCommit(false);
         try {
             String sql = "UPDATE passageiro SET"
-                    + "nome = ? ,"
-                    + "cpf = ? ,"
-                    + "telefone = ? ,"
-                    + "email = ? ,"
-                    + "login = ? ,"
-                    + "senha = ? ,"
-                    + "data_nascimento = ? ,"
-                    + "sexo = ? ,"
-                    + "status_passageiro = ? ,"
-                    + "id_endereco = ?"                    
-                    + "WHERE id = ?;";
+                    + " nome = ? ,"
+                    + " cpf = ? ,"
+                    + " telefone = ? ,"
+                    + " email = ? ,"
+                    + " login = ? ,"
+                    + " senha = ? ,"
+                    + " data_nascimento = ? ,"
+                    + " sexo = ? ,"
+                    + " status_passageiro = ? ,"
+                    + " id_endereco = ?"                    
+                    + " WHERE id = ?;";
             this.inserir_alterar(t, con, sql);
             con.commit();
         } catch (Exception e) {

@@ -13,11 +13,8 @@ public class EnderecoDao extends GenericDao<Endereco>{
 
     @Override
     protected Endereco devolverObjeto(ResultSet rs) throws SQLException {
-        while (rs.next()) {
-            return new Endereco(rs.getInt("id"), rs.getString("rua"), rs.getString("quadra"), 
-                    rs.getString("lote"), rs.getString("setor"), rs.getString("cep"), rs.getString("complemento"));//Incompleto
-        }
-        return null;
+        return new Endereco(rs.getInt("id"), rs.getString("rua"), rs.getString("quadra"), 
+                rs.getString("lote"), rs.getString("setor"), rs.getString("cep"), rs.getString("complemento"));//Incompleto
     }
 
     @Override
@@ -83,13 +80,13 @@ public class EnderecoDao extends GenericDao<Endereco>{
         con.setAutoCommit(false);
         try {
             String sql = "UPDATE endereco SET"
-                    + "rua = ? ,"
-                    + "quadra = ? ,"
-                    + "lote = ? ,"
-                    + "setor = ? ,"
-                    + "cep = ? ,"
-                    + "complemento = ?"
-                    + "WHERE id = ?;";
+                    + " rua = ? ,"
+                    + " quadra = ? ,"
+                    + " lote = ? ,"
+                    + " setor = ? ,"
+                    + " cep = ? ,"
+                    + " complemento = ?"
+                    + " WHERE id = ?;";
             this.inserir_alterar(t, con, sql);
             con.commit();
         } catch (Exception e) {
@@ -103,7 +100,8 @@ public class EnderecoDao extends GenericDao<Endereco>{
         try {
             Connection con = util.Conexao.getConexao();
             List<Endereco> lista = new ArrayList<>();
-            String condicao = "AND id = ";//haha vai ter q concatenar na mão kkk
+            String condicao = " AND id = ";
+            condicao += (int)object[0];//haha vai ter q concatenar na mão kkk
             lista = this.visualizar(con, "endereco", condicao);
             return lista.get(0);
         } catch (Exception e) {

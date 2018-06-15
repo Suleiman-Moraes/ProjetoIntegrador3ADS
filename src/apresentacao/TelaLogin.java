@@ -5,6 +5,8 @@ import interfaces.BuscarPassandoLoginSenha;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import interfaces.IComunicaPaginaPrincipal;
+import java.util.ArrayList;
+import java.util.List;
 import util.Fabrica;
 
 public class TelaLogin extends JInternalFrame {
@@ -168,10 +170,12 @@ public class TelaLogin extends JInternalFrame {
 
     private void jButtonAvancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAvancarActionPerformed
         try {
+            List lista = new ArrayList();
             String login = jTextFieldLogin.getText().trim();
             String senha = jPasswordFieldSenha.getText();
             BuscarPassandoLoginSenha x = Fabrica.getInstance(legenda);
-            if(x.buscarPassandoLoginSenha(login, senha).size() > 0){
+            lista = x.buscarPassandoLoginSenha(login, senha);
+            if(lista != null && lista.size() > 0){
                 paginaPrincipal.comunicaPaginaPrincipal(true, login, senha);
                 dispose();
             }

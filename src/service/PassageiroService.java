@@ -26,6 +26,15 @@ public class PassageiroService implements ICrudService<Passageiro>, BuscarPassan
             new PassageiroDao().alterar(t);
         }
         else{
+            List<Passageiro> aux = this.buscarPassandoQualquerCoisa("login", t.getLogin());
+            if(aux != null && aux.size() != 0){
+                throw new Exception("Login Inválido.");
+            }
+            aux = this.buscarPassandoQualquerCoisa("cpf", t.getCpf());
+            if(aux != null && aux.size() != 0){
+                throw new Exception("CPF Inválido.");
+            }
+            new EnderecoService().salvar(t.getEndereco());
             new PassageiroDao().inserir(t);
         }
     }
@@ -59,10 +68,22 @@ public class PassageiroService implements ICrudService<Passageiro>, BuscarPassan
     public List<Passageiro> buscarPassandoLoginSenha(String login, String senha) throws SQLException {
         try {
             StringBuilder tudo = new StringBuilder("");
-            tudo.append(" AND login = ");
+            tudo.append(" AND login = '");
             tudo.append(login);
-            tudo.append(" AND senha = ");
-            tudo.append(senha);
+            tudo.append("' AND senha = '");
+            tudo.append(senha).append("'");
+            return new PassageiroDao().bucarPassageirosPassandoParametros(tudo.toString());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public List<Passageiro> buscarPassandoQualquerCoisa(String coluna, String param) throws SQLException {
+        try {
+            StringBuilder tudo = new StringBuilder("");
+            tudo.append(" AND ").append(coluna).append(" = '");
+            tudo.append(param);
+            tudo.append("'");
             return new PassageiroDao().bucarPassageirosPassandoParametros(tudo.toString());
         } catch (Exception e) {
             return null;
