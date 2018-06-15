@@ -123,7 +123,7 @@ public class MotoristaDao extends GenericDao<Motorista> {
         try {
             Connection con = util.Conexao.getConexao();
             List<Motorista> lista = new ArrayList<>();
-            String condicao = "AND id = "+(int)object[0];
+            String condicao = " AND id = "+(int)object[0];
                     ;//haha vai ter q concatenar na mão kkk
             lista = this.visualizar(con, "motorista", condicao);
             return lista.get(0);

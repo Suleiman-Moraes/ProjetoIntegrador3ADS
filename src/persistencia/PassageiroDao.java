@@ -115,7 +115,8 @@ public class PassageiroDao extends GenericDao<Passageiro>{
         try {
             Connection con = util.Conexao.getConexao();
             List<Passageiro> lista = new ArrayList<>();
-            String condicao = "AND id = ";//haha vai ter q concatenar na mão kkk
+            String condicao = " AND id = ";
+            condicao += (int)object[0];//haha vai ter q concatenar na mão kkk
             lista = this.visualizar(con, "passageiro", condicao);
             return lista.get(0);
         } catch (Exception e) {
