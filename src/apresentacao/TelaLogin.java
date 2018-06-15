@@ -4,9 +4,7 @@ import enuns.Legenda;
 import interfaces.BuscarPassandoLoginSenha;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
-import javax.swing.JOptionPane;
 import interfaces.IComunicaPaginaPrincipal;
-import java.util.Arrays;
 import util.Fabrica;
 
 public class TelaLogin extends JInternalFrame {

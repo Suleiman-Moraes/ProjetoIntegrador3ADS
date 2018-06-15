@@ -3,6 +3,7 @@ package apresentacao.motorista;
 import apresentacao.Dialogo_ERRO;
 import apresentacao.TelaLogin;
 import enuns.Legenda;
+import enuns.StatusMotorista;
 import interfaces.IComunicaPaginaPrincipal;
 import interfaces.IObservador;
 import interfaces.IServidorObserver;
@@ -152,6 +153,8 @@ public class MotoristaPrincipal extends javax.swing.JFrame implements IObservado
     @Override
     public void comunicaPaginaPrincipal(boolean x, String login, String senha)  throws Exception{
         this.motorista = new MotoristaService().buscarPassandoLoginSenha(login, senha).get(0);
+        this.motorista.setStatusMotorista(StatusMotorista.ONLINE);
+        new MotoristaService().salvar(motorista);
         this.servidorObserver.incluirNaRede(this);
         jMenuCadastro.setEnabled(x);
         jMenuSair.setEnabled(x);

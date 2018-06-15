@@ -138,6 +138,13 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
     }//GEN-LAST:event_formWindowClosing
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        this.passageiro.setStatusPassageiro(StatusPassageiro.OFFLINE);
+        try {
+            if(passageiro != null && passageiro.getId() > 0)
+                new PassageiroService().salvar(passageiro);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         this.servidorObserver.retirarDaRede(this);
         this.dispose();
     }//GEN-LAST:event_formWindowClosed
@@ -156,6 +163,8 @@ public class PassageiroPrincipal extends JFrame implements IObservador, IComunic
     @Override
     public void comunicaPaginaPrincipal(boolean x, String login, String senha)  throws Exception{
         this.passageiro = new PassageiroService().buscarPassandoLoginSenha(login, senha).get(0);
+        this.passageiro.setStatusPassageiro(StatusPassageiro.ONLINE);
+        new PassageiroService().salvar(passageiro);
         this.servidorObserver.incluirNaRede(this);
         jMenuCadastro.setEnabled(x);
         jMenuSair.setEnabled(x);

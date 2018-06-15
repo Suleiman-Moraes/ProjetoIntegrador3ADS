@@ -49,7 +49,6 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
         jScrollPane4 = new javax.swing.JScrollPane();
         jTableMotoristaDisponivel = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jButtonPassageiro = new javax.swing.JButton();
         jButtonMotorista = new javax.swing.JButton();
@@ -235,28 +234,15 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
 
         jPanel5.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(0, 0, 0)));
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(381, 381, 381)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 1324, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(jButton1)
-                .addContainerGap(202, Short.MAX_VALUE))
+            .addGap(0, 289, Short.MAX_VALUE)
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(0, 0, 0)));
@@ -378,10 +364,6 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
         }
     }//GEN-LAST:event_jButtonMotoristaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        teste();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     @Override
     public void incluirNaRede(IObservador cv) {
         observadores.add(cv);
@@ -407,26 +389,7 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
     private void atualizaGrids(){
         try {
             this.popularGridPassageiro();
-            this.popularGrid(jTablePassageiroOnline, motoristaService.bucarMotoristasPassandoStatusEnum(StatusMotorista.ONLINE), this.coluna);
-//            DefaultTableModel model = new DefaultTableModel();
-//            model.setNumRows(0);
-//            Iterator online = passageiroService.bucarPassageirosPassandoStatusEnum(StatusPassageiro.ONLINE);
-//            while(online.hasNext()){
-//                IDesmaterializar x = (IDesmaterializar) online.next();
-//                model.addRow(popularGridPassageiro(x.desmaterializar()));
-//            }
-//            model.setColumnIdentifiers(this.colunaPassageiro);
-//            jTablePassageiroOnline.setModel(model);
-//            
-//            model = new DefaultTableModel();
-//            model.setNumRows(0);
-//            online = passageiroService.bucarPassageirosPassandoStatusEnum(StatusPassageiro.SOLICITOU_VIAGEM);
-//            while(online.hasNext()){
-//                IDesmaterializar x = (IDesmaterializar) online.next();
-//                model.addRow(popularGridPassageiro(x.desmaterializar()));
-//            }
-//            model.setColumnIdentifiers(this.colunaPassageiro);
-//            jTablePassageiroSolicitouViagem.setModel(model);
+            this.popularGrid(jTableMotoristaDisponivel, motoristaService.bucarMotoristasPassandoStatusEnum(StatusMotorista.ONLINE), this.coluna);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro no Servidor", JOptionPane.ERROR_MESSAGE);
         }
@@ -499,7 +462,6 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonMotorista;
     private javax.swing.JButton jButtonPassageiro;
     private javax.swing.JPanel jPanel1;
@@ -519,12 +481,4 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
     private javax.swing.JTable jTablePassageiroSolicitouViagem;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
-
-    private void teste() {
-        DefaultTableModel model = new DefaultTableModel();
-        model.setNumRows(0);
-        model.addRow(new String[5]);
-        model.setColumnIdentifiers(this.coluna);
-        jTablePassageiroOnline.setModel(model);
-    }
 }
