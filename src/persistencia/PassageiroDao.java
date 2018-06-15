@@ -39,8 +39,9 @@ public class PassageiroDao extends GenericDao<Passageiro>{
             ps.setString(5, t.getLogin());
             ps.setString(6, t.getSenha());
             ps.setDate(7, Ultilidades.pegaDataDevolveData(t.getDataDeNascimento()));
-            ps.setInt(8, t.getEndereco().getId());//endereco
-            ps.setString(9, t.getSexo().getDescricao());
+            ps.setString(8, t.getSexo().getDescricao());
+            ps.setString(9, t.getStatusPassageiro().getDescricao());
+            ps.setInt(10, t.getEndereco().getId());//endereco
 
             if(t.getId() > 0){
                 ps.setInt(10, t.getId());
@@ -58,8 +59,8 @@ public class PassageiroDao extends GenericDao<Passageiro>{
         con.setAutoCommit(false);
         try {
             String sql = "INSERT INTO passageiro (nome, cpf, telefone, email, login, senha, data_nascimento, sexo, status_passageiro, id_endereco)"
-                    + " VALUES (?,?,?,?,?,?,?,?,?)";
-            String curral = "SELECT currval('passageiro_id_seqa');";
+                    + " VALUES (?,?,?,?,?,?,?,?,?,?)";
+            String curral = "SELECT currval('passageiro_id_seq');";
             this.inserir_alterar(t, con, sql, curral);
             con.commit();
         }catch(Exception e){

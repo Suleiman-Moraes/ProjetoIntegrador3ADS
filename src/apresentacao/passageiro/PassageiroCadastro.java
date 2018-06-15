@@ -5,6 +5,7 @@ import apresentacao.Dialogo_Sucesso;
 import apresentacao.TelaLogin;
 import enuns.Legenda;
 import enuns.Sexo;
+import enuns.StatusPassageiro;
 import interfaces.IComunicaPaginaPrincipal;
 import java.util.Arrays;
 import javax.swing.JDesktopPane;
@@ -12,6 +13,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JTextField;
 import model.Endereco;
 import model.Passageiro;
+import service.EnderecoService;
 import service.PassageiroService;
 import util.Ultilidades;
 
@@ -446,9 +448,17 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
             this.validaCampos();
             Passageiro passageiro = this.printTela();
             
+            new EnderecoService().salvar(passageiro.getEndereco());
             new PassageiroService().salvar(passageiro);
             Dialogo_Sucesso.dialogo_Sucesso(principal, "Dados Inseridos com sucesso!");
             this.limparTela();
+            
+            if(jTextFieldID.getText().trim().equals("")){
+                JInternalFrame tela = new TelaLogin(principal, paginaPrincipal, legenda);
+                principal.add(tela);
+                tela.setVisible(true);
+            }
+            this.dispose();
         } catch (Exception e) {
             Dialogo_ERRO.dialogo_ERRO(principal, e.getMessage());
         }
@@ -548,7 +558,7 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
             passageiro.setEmail(jTextFieldEmail.getText().trim());
         }
         passageiro.setLogin(jTextFieldLogin.getText().trim());
-        passageiro.setSenha(Arrays.toString(jPasswordFieldSenha.getPassword()));
+        passageiro.setSenha(jPasswordFieldSenha.getText());
         passageiro.setDataDeNascimento(
                 Ultilidades.pegaStringDevolveDataUtil(jFormattedTextFieldDataNascimento.getText().trim()));
         if(jRadioButtonHomem.isSelected()){
@@ -559,6 +569,7 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
         }
         
         passageiro.setEndereco(printTelaEndereco());
+        passageiro.setStatusPassageiro(StatusPassageiro.OFFLINE);
         
         return passageiro;
     }

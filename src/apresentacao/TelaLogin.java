@@ -171,7 +171,7 @@ public class TelaLogin extends JInternalFrame {
     private void jButtonAvancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAvancarActionPerformed
         try {
             String login = jTextFieldLogin.getText().trim();
-            String senha = Arrays.toString(jPasswordFieldSenha.getPassword());
+            String senha = jPasswordFieldSenha.getText();
             BuscarPassandoLoginSenha x = Fabrica.getInstance(legenda);
             if(x.buscarPassandoLoginSenha(login, senha).size() > 0){
                 paginaPrincipal.comunicaPaginaPrincipal(true, login, senha);
