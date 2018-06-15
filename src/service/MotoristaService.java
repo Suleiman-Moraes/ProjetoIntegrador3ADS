@@ -9,14 +9,14 @@ import java.util.List;
 import model.Motorista;
 import persistencia.MotoristaDao;
 
-public class MotoristaService implements ICrudService<Motorista>, BuscarPassandoLoginSenha<Motorista>{
+public class MotoristaService implements ICrudService<Motorista>, BuscarPassandoLoginSenha<Motorista> {
 
     @Override
     public void salvar(Motorista t) throws Exception {
-        if(t.getId() != 0){
+        
+        if (t.getId() != 0) {
             new MotoristaDao().alterar(t);
-        }
-        else{
+        } else {
             new MotoristaDao().inserir(t);
         }
     }
@@ -35,7 +35,7 @@ public class MotoristaService implements ICrudService<Motorista>, BuscarPassando
     public Iterator<Motorista> visualizarAll() throws SQLException {
         return new MotoristaDao().visualizarAll().iterator();
     }
-    
+
     public Iterator<Motorista> bucarMotoristasPassandoStatusEnum(StatusMotorista statusMotorista) throws SQLException {
         try {
             String condicao = " AND status_motorista = ";
@@ -59,4 +59,5 @@ public class MotoristaService implements ICrudService<Motorista>, BuscarPassando
             return null;
         }
     }
+
 }
