@@ -17,17 +17,14 @@ public class MotoristaDao extends GenericDao<Motorista> {
 
     @Override
     protected Motorista devolverObjeto(ResultSet rs) throws SQLException {
-        while (rs.next()) {
-            return new Motorista(rs.getInt("id"), rs.getString("nome"), rs.getString("cpf"), 
-                    rs.getString("telefone"), rs.getString("email"), rs.getString("login"), rs.getString("senha"), 
-                    Ultilidades.pegaDataDevolveData(rs.getDate("data_nascimento")),
-                    new EnderecoDao().visualizarUm(rs.getInt("id_endereco")), 
-                    (Sexo)Fabrica.getInstance(Sexo.values(), rs.getString("sexo")),
-                    rs.getString("cnh"),
-                    (StatusMotorista)Fabrica.getInstance(StatusMotorista.values(), rs.getString("status_motorista")), 
-                    new VeiculoDao().visualizarUm(rs.getInt("id_veiculo")));
-        }
-        return null;
+        return new Motorista(rs.getInt("id"), rs.getString("nome"), rs.getString("cpf"), 
+                rs.getString("telefone"), rs.getString("email"), rs.getString("login"), rs.getString("senha"), 
+                Ultilidades.pegaDataDevolveData(rs.getDate("data_nascimento")),
+                new EnderecoDao().visualizarUm(rs.getInt("id_endereco")), 
+                (Sexo)Fabrica.getInstance(Sexo.values(), rs.getString("sexo")),
+                rs.getString("cnh"),
+                (StatusMotorista)Fabrica.getInstance(StatusMotorista.values(), rs.getString("status_motorista")), 
+                new VeiculoDao().visualizarUm(rs.getInt("id_veiculo")));
     }
 
     @Override
@@ -97,19 +94,19 @@ public class MotoristaDao extends GenericDao<Motorista> {
         con.setAutoCommit(false);
         try {
             String sql = "UPDATE motorista SET"
-                    + "nome = ? , "
-                    + "cpf = ? ,"
-                    + "telefone = ? ,"
-                    + "email = ? ,"
-                    + "login = ? ,"
-                    + "senha = ? ,"
-                    + "data_nascimento = ? ,"
-                    + "id_endereco = ? ,"
-                    + "sexo = ? ,"
-                    + "cnh = ? ,"
-                    + "status_motorista = ? ,"
-                    + "id_veiculo = ?"
-                    + "WHERE id = ?;";
+                    + " nome = ? , "
+                    + " cpf = ? ,"
+                    + " telefone = ? ,"
+                    + " email = ? ,"
+                    + " login = ? ,"
+                    + " senha = ? ,"
+                    + " data_nascimento = ? ,"
+                    + " id_endereco = ? ,"
+                    + " sexo = ? ,"
+                    + " cnh = ? ,"
+                    + " status_motorista = ? ,"
+                    + " id_veiculo = ?"
+                    + " WHERE id = ?;";
             this.inserir_alterar(t, con, sql);
             con.commit();
         } catch (Exception e) {

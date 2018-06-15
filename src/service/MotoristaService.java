@@ -31,7 +31,24 @@ public class MotoristaService implements ICrudService<Motorista>, BuscarPassando
             new EnderecoService().salvar(t.getEndereco());
             new MotoristaDao().alterar(t);
         } else {
-            new VeiculoDao().alterar(t.getVeiculo());
+            List aux = this.buscarPassandoQualquerCoisa("login", t.getLogin());
+            if(aux != null && aux.size() != 0){
+                throw new Exception("Login Inválido.");
+            }
+            aux = this.buscarPassandoQualquerCoisa("cpf", t.getCpf());
+            if(aux != null && aux.size() != 0){
+                throw new Exception("CPF Inválido.");
+            }
+            aux = this.buscarPassandoQualquerCoisa("cnh", t.getCnh());
+            if(aux != null && aux.size() != 0){
+                throw new Exception("CNH Inválido.");
+            }
+            VeiculoDao vei = new VeiculoDao();
+            aux = vei.bucarVeiculosPassandoParametros(" AND placa = '" + t.getVeiculo().getPlaca() + "'");
+            if(aux != null && aux.size() != 0){
+                throw new Exception("Placa Inválida.");
+            }
+            vei.alterar(t.getVeiculo());
             new EnderecoService().salvar(t.getEndereco());
             new MotoristaDao().inserir(t);
         }
@@ -66,10 +83,10 @@ public class MotoristaService implements ICrudService<Motorista>, BuscarPassando
     public List<Motorista> buscarPassandoLoginSenha(String login, String senha) throws SQLException {
         try {
             StringBuilder tudo = new StringBuilder("");
-            tudo.append(" AND login = ");
+            tudo.append(" AND login = '");
             tudo.append(login);
-            tudo.append(" AND senha = ");
-            tudo.append(senha);
+            tudo.append("' AND senha = '");
+            tudo.append(senha).append("'");
             return new MotoristaDao().buscarMotoristasPassandoParametros(tudo.toString());
         } catch (Exception e) {
             return null;

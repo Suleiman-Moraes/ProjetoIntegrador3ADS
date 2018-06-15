@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import model.Passageiro;
 import model.Veiculo;
 import util.Conexao;
 
@@ -118,4 +119,12 @@ public class VeiculoDao extends GenericDao<Veiculo> {
         }
     }
 
+    public List<Veiculo> bucarVeiculosPassandoParametros(String... condicao) throws SQLException {
+        try {
+            Connection con = util.Conexao.getConexao();
+            return this.visualizar(con, "veiculo", condicao);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }
