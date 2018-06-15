@@ -144,7 +144,7 @@ public class MotoristaDao extends GenericDao<Motorista> {
         }
     }
     
-    public List<Motorista> bucarMotoristasPassandoParametros(String... condicao) throws SQLException {
+    public List<Motorista> buscarMotoristasPassandoParametros(String... condicao) throws SQLException {
         try {
             Connection con = util.Conexao.getConexao();
             return this.visualizar(con, "motorista", condicao);

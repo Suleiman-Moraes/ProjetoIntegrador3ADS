@@ -118,6 +118,7 @@ public class MotoristaPrincipal extends javax.swing.JFrame implements IObservado
     }//GEN-LAST:event_jMenuItemAlterarDadosActionPerformed
 
     private void jMenuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSairActionPerformed
+        this.motorista.setStatusMotorista(StatusMotorista.OFFLINE);
         try {
             if(motorista != null && motorista.getId() > 0)
                 new MotoristaService().salvar(motorista);
@@ -129,6 +130,7 @@ public class MotoristaPrincipal extends javax.swing.JFrame implements IObservado
     }//GEN-LAST:event_jMenuItemSairActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        this.motorista.setStatusMotorista(StatusMotorista.OFFLINE);
         try {
             if(motorista != null && motorista.getId() > 0)
                 new MotoristaService().salvar(motorista);

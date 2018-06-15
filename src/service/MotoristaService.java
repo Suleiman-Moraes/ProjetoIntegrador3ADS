@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import model.Motorista;
 import persistencia.MotoristaDao;
+import persistencia.VeiculoDao;
 
 public class MotoristaService implements ICrudService<Motorista>, BuscarPassandoLoginSenha<Motorista> {
 
@@ -26,8 +27,12 @@ public class MotoristaService implements ICrudService<Motorista>, BuscarPassando
             throw new Exception("CEP Inválido.");
         }
         if (t.getId() != 0) {
+            new VeiculoDao().alterar(t.getVeiculo());
+            new EnderecoService().salvar(t.getEndereco());
             new MotoristaDao().alterar(t);
         } else {
+            new VeiculoDao().alterar(t.getVeiculo());
+            new EnderecoService().salvar(t.getEndereco());
             new MotoristaDao().inserir(t);
         }
     }
@@ -51,7 +56,7 @@ public class MotoristaService implements ICrudService<Motorista>, BuscarPassando
         try {
             String condicao = " AND status_motorista = ";
             condicao += statusMotorista.getDescricao();
-            return new MotoristaDao().bucarMotoristasPassandoParametros(condicao).iterator();
+            return new MotoristaDao().buscarMotoristasPassandoParametros(condicao).iterator();
         } catch (Exception e) {
             return null;
         }
@@ -65,10 +70,21 @@ public class MotoristaService implements ICrudService<Motorista>, BuscarPassando
             tudo.append(login);
             tudo.append(" AND senha = ");
             tudo.append(senha);
-            return new MotoristaDao().bucarMotoristasPassandoParametros(tudo.toString());
+            return new MotoristaDao().buscarMotoristasPassandoParametros(tudo.toString());
         } catch (Exception e) {
             return null;
         }
     }
 
+    public List<Motorista> buscarPassandoQualquerCoisa(String coluna, String param) throws SQLException {
+        try {
+            StringBuilder tudo = new StringBuilder("");
+            tudo.append(" AND ").append(coluna).append(" = '");
+            tudo.append(param);
+            tudo.append("'");
+            return new MotoristaDao().buscarMotoristasPassandoParametros(tudo.toString());
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

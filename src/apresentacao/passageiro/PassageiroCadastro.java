@@ -12,7 +12,6 @@ import javax.swing.JInternalFrame;
 import javax.swing.JTextField;
 import model.Endereco;
 import model.Passageiro;
-import service.EnderecoService;
 import service.PassageiroService;
 import service.ValidacaoComum;
 import util.Ultilidades;

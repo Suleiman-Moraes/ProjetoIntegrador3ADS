@@ -23,6 +23,7 @@ public class PassageiroService implements ICrudService<Passageiro>, BuscarPassan
             throw new Exception("CEP Inválido.");
         }
         if(t.getId() != 0){
+            new EnderecoService().salvar(t.getEndereco());
             new PassageiroDao().alterar(t);
         }
         else{

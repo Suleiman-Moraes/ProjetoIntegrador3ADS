@@ -562,16 +562,15 @@ public class MotoristaCadastro extends javax.swing.JInternalFrame {
             this.validaCampos();
             Motorista motorista = this.printTela();
 
-            new EnderecoService().salvar(motorista.getEndereco());
             new MotoristaService().salvar(motorista);
             Dialogo_Sucesso.dialogo_Sucesso(principal, "Dados Inseridos com sucesso!");
-            this.limparTela();
             
             if(jTextFieldID.getText().trim().equals("")){
                 JInternalFrame tela = new TelaLogin(principal, paginaPrincipal, legenda);
                 principal.add(tela);
                 tela.setVisible(true);
             }
+            this.limparTela();
             this.dispose();
         } catch (Exception e) {
             Dialogo_ERRO.dialogo_ERRO(principal, e.getMessage());
@@ -679,7 +678,13 @@ public class MotoristaCadastro extends javax.swing.JInternalFrame {
     }
     
     private Motorista printTela() throws Exception{
-        Motorista motorista = new Motorista();
+        Motorista motorista;
+        if(this.motorista == null){
+            motorista = new Motorista();
+        }else{
+            motorista = this.motorista;
+        }
+        
         if(!jTextFieldID.getText().trim().equals("")){
             motorista.setId(new Integer(jTextFieldID.getText().trim()));
         }
@@ -709,7 +714,12 @@ public class MotoristaCadastro extends javax.swing.JInternalFrame {
     }
     
     private Endereco printTelaEndereco(){
-        Endereco x = new Endereco();
+        Endereco x;
+        if(this.motorista == null){
+            x = new Endereco();
+        }else{
+            x = motorista.getEndereco();
+        }
         
         x.setRua(jTextFieldRua.getText().trim());
         x.setQuadra(jTextFieldQuadra.getText().trim());
@@ -726,7 +736,12 @@ public class MotoristaCadastro extends javax.swing.JInternalFrame {
     }
     
     private Veiculo printTelaVeiculo(){
-        Veiculo x = new Veiculo();
+        Veiculo x;
+        if(this.motorista == null){
+            x = new Veiculo();
+        }else{
+            x = motorista.getVeiculo();
+        }
         
         x.setModelo(jTextFieldModelo.getText().trim());
         x.setMarca(jTextFieldMarca.getText().trim());
