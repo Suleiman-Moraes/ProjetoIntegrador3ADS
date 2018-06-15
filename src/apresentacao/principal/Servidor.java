@@ -367,12 +367,14 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
     @Override
     public void incluirNaRede(IObservador cv) {
         observadores.add(cv);
+        this.atualizaGrids();
     }
 
     @Override
     public void retirarDaRede(IObservador cv) {
         if(cv != null){
             observadores.remove(cv);
+            this.atualizaGrids();
         }
     }
 
@@ -383,7 +385,7 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
 
     @Override
     public void setInformacao(Informacao cv) {
-        //atualizargrid
+        
     }
     
     private void atualizaGrids(){
