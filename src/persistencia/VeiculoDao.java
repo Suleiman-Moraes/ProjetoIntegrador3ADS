@@ -13,11 +13,8 @@ public class VeiculoDao extends GenericDao<Veiculo> {
 
     @Override
     protected Veiculo devolverObjeto(ResultSet rs) throws SQLException {
-        while (rs.next()) {
-            return new Veiculo(rs.getInt("id"), rs.getString("modelo"), rs.getString("marca"),
-                    rs.getString("cor"), rs.getInt("assentos"), rs.getString("placa"));
-        }
-        return null;
+        return new Veiculo(rs.getInt("id"), rs.getString("modelo"), rs.getString("marca"),
+                rs.getString("cor"), rs.getInt("assentos"), rs.getString("placa"));
     }
 
     @Override
@@ -81,12 +78,12 @@ public class VeiculoDao extends GenericDao<Veiculo> {
         con.setAutoCommit(false);
         try {
             String sql = "UPDATE veiculo SET"
-                    + "modelo = ? ,"
-                    + "marca = ? ,"
-                    + "cor = ? ,"
-                    + "assentos = ? ,"
-                    + "placa = ?"                    
-                    + "WHERE id = ?;";
+                    + " modelo = ? ,"
+                    + " marca = ? ,"
+                    + " cor = ? ,"
+                    + " assentos = ? ,"
+                    + " placa = ?"                    
+                    + " WHERE id = ?;";
             this.inserir_alterar(t, con, sql);
             con.commit();
         } catch (Exception e) {
@@ -100,7 +97,8 @@ public class VeiculoDao extends GenericDao<Veiculo> {
         try {
             Connection con = util.Conexao.getConexao();
             List<Veiculo> lista = new ArrayList<>();
-            String condicao = "AND id = ";
+            String condicao = " AND id = ";
+            condicao += (int)object[0] + "";
             lista = this.visualizar(con, "veiculo", condicao);
             return lista.get(0);
         } catch (Exception e) {
@@ -118,4 +116,12 @@ public class VeiculoDao extends GenericDao<Veiculo> {
         }
     }
 
+    public List<Veiculo> bucarVeiculosPassandoParametros(String... condicao) throws SQLException {
+        try {
+            Connection con = util.Conexao.getConexao();
+            return this.visualizar(con, "veiculo", condicao);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

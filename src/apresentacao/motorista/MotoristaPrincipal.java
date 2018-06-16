@@ -109,7 +109,7 @@ public class MotoristaPrincipal extends javax.swing.JFrame implements IObservado
 
     private void jMenuItemAlterarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAlterarDadosActionPerformed
         try {
-            JInternalFrame janela = (JInternalFrame) Fabrica.getInstance(legenda, jDesktopPane, this);
+            JInternalFrame janela = new MotoristaCadastro(legenda, jDesktopPane, this, motorista);
             this.jDesktopPane.add(janela);
             janela.setVisible(true);
         } catch (Exception e) {
