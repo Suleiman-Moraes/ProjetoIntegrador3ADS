@@ -6,6 +6,7 @@ import enuns.Legenda;
 import interfaces.BuscarPassandoLoginSenha;
 import interfaces.IComunicaPaginaPrincipal;
 import javax.swing.JDesktopPane;
+import service.MotoristaService;
 import service.PassageiroService;
 
 public class Fabrica {
@@ -35,8 +36,8 @@ public class Fabrica {
         switch(legenda){
             case PASSAGEIRO:
                 return new PassageiroService();
-//            case MOTORISTA:
-//                return new MotoristaCadastro(legenda, pane, paginaPrincipal);
+            case MOTORISTA:
+                return new MotoristaService();
             default:
                 return null;
         }

@@ -630,7 +630,7 @@ public class MotoristaCadastro extends javax.swing.JInternalFrame {
             }
         }
         if(jTextFieldLogin.getText().trim().equals("")) throw new Exception("Insira Login.");
-        if(jPasswordFieldSenha.getPassword().length == 0) throw new Exception("Insira Senha.");
+        if(jPasswordFieldSenha.getText().length() == 0) throw new Exception("Insira Senha.");
         if(jFormattedTextFieldDataNascimento.getText().trim().length() != 10){
             throw new Exception("Insira Data de Nascimento.");
         }
@@ -695,7 +695,7 @@ public class MotoristaCadastro extends javax.swing.JInternalFrame {
             motorista.setEmail(jTextFieldEmail.getText().trim());
         }
         motorista.setLogin(jTextFieldLogin.getText().trim());
-        motorista.setSenha(Arrays.toString(jPasswordFieldSenha.getPassword()));
+        motorista.setSenha(jPasswordFieldSenha.getText());
         motorista.setDataDeNascimento(
                 Ultilidades.pegaStringDevolveDataUtil(jFormattedTextFieldDataNascimento.getText().trim()));
         if(jRadioButtonHomem.isSelected()){
@@ -762,6 +762,7 @@ public class MotoristaCadastro extends javax.swing.JInternalFrame {
             jTextFieldLogin.setText(motorista.getLogin());
             jPasswordFieldSenha.setText(motorista.getSenha());
             jFormattedTextFieldDataNascimento.setText(Ultilidades.pegaDataDevolveString(motorista.getDataDeNascimento()));
+            jFormattedTextFieldCNH.setText(motorista.getCnh());
             this.preencherTelaEndereco(motorista.getEndereco());
             this.preencherTelaVeiculo(motorista.getVeiculo());
 
@@ -798,7 +799,6 @@ public class MotoristaCadastro extends javax.swing.JInternalFrame {
     
     private void limparTela(){
         try {
-            jTextFieldID.setText("");
             jTextFieldNome.setText("");
             jFormattedTextFieldCPF.setText("");
             jFormattedTextFieldTelefone.setText("");

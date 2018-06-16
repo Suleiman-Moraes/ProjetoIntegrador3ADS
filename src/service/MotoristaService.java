@@ -48,7 +48,7 @@ public class MotoristaService implements ICrudService<Motorista>, BuscarPassando
             if(aux != null && aux.size() != 0){
                 throw new Exception("Placa Inválida.");
             }
-            vei.alterar(t.getVeiculo());
+            vei.inserir(t.getVeiculo());
             new EnderecoService().salvar(t.getEndereco());
             new MotoristaDao().inserir(t);
         }

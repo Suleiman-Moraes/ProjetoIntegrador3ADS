@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
-import java.util.Date;
 import java.util.InputMismatchException;
 
 public class ValidacaoComum {
@@ -78,10 +77,6 @@ public class ValidacaoComum {
     }
 
     public static boolean validaCNH(String cnh) {
-        if (!cnh.matches("[0-9]")) {
-            return false;
-        }
-
         if (cnh.equals("11111111111") || cnh.equals("22222222222") || cnh.equals("33333333333")
                 || cnh.equals("44444444444") || cnh.equals("55555555555") || cnh.equals("66666666666")
                 || cnh.equals("77777777777") || cnh.equals("88888888888") || cnh.equals("99999999999")
@@ -89,39 +84,7 @@ public class ValidacaoComum {
             return false;
         }
 
-        int[] fracao = new int[9];
-        int acumulador = 0;
-        int inc = 2;
-        for (int i = 0; i < 9; i++) {
-            fracao[i] = (Math.abs(Integer.parseInt(cnh.substring(i, 1)))) * inc;
-            acumulador += fracao[i];
-            inc++;
-        }
-
-        int resto = acumulador % 11;
-        int digito1 = 0;
-        if (resto > 1) {
-            digito1 = 11 - resto;
-        }
-        acumulador = digito1 * 2;
-        inc = 3;
-        for (int i = 0; i < 9; i++) {
-            fracao[i] = (Math.abs(Integer.parseInt(cnh.substring(i, 1)))) * inc;
-            acumulador += Math.abs(fracao[i]);
-            inc++;
-        }
-
-        resto = acumulador % 11;
-        int digito2 = 0;
-        if (resto > 1) {
-            digito2 = 11 - resto;
-        }
-        if (digito1 == Math.abs(Integer.parseInt(cnh.substring(9, 1)))
-                && digito2 == Math.abs(Integer.parseInt(cnh.substring(10, 1)))) {
-            return true;
-        }
-
-        return false;
+        return true;
     }
     
     public static boolean isDateValid(java.util.Date strDate) {

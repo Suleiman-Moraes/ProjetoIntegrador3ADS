@@ -637,7 +637,6 @@ public class PassageiroCadastro extends javax.swing.JInternalFrame {
     
     private void limparTela(){
         try {
-            jTextFieldID.setText("");
             jTextFieldNome.setText("");
             jFormattedTextFieldCPF.setText("");
             jFormattedTextFieldTelefone.setText("");
