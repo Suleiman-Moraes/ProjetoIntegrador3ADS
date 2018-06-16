@@ -99,6 +99,7 @@ public class EnderecoDao extends GenericDao<Endereco>{
     public Endereco visualizarUm(Object... object) throws SQLException {
         try {
             Connection con = util.Conexao.getConexao();
+            con.setAutoCommit(true);
             List<Endereco> lista = new ArrayList<>();
             String condicao = " AND id = ";
             condicao += (int)object[0];//haha vai ter q concatenar na mão kkk
@@ -113,6 +114,7 @@ public class EnderecoDao extends GenericDao<Endereco>{
     public List<Endereco> visualizarAll() throws SQLException {
         try {
             Connection con = util.Conexao.getConexao();
+            con.setAutoCommit(true);
             return this.visualizar(con, "endereco", "");
         } catch (Exception e) {
             return null;

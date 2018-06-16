@@ -408,14 +408,16 @@ public class Servidor extends javax.swing.JFrame implements IServidorObserver{
     
     private void popularGrid(JTable jTable, Iterator iterator, String[] coluna) {
         try {
-            DefaultTableModel model = new DefaultTableModel();
-            model.setNumRows(0);
-            while (iterator.hasNext()) {
-                IDesmaterializar x = (IDesmaterializar) iterator.next();
-                model.addRow(popularGridColuna(x.desmaterializar()));
-            }
-            model.setColumnIdentifiers(coluna);
+            DefaultTableModel model = new DefaultTableModel(null, coluna);
             jTable.setModel(model);
+            model.setNumRows(0);
+            if(iterator != null){
+                while (iterator.hasNext()) {
+                    IDesmaterializar x = (IDesmaterializar) iterator.next();
+                    model.addRow(popularGridColuna(x.desmaterializar()));
+                }
+            }
+//            model.setColumnIdentifiers(coluna);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro no Servidor", JOptionPane.ERROR_MESSAGE);
         }

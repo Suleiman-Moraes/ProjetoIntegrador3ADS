@@ -119,6 +119,7 @@ public class MotoristaDao extends GenericDao<Motorista> {
     public Motorista visualizarUm(Object... object) throws SQLException {
         try {
             Connection con = util.Conexao.getConexao();
+            con.setAutoCommit(true);
             List<Motorista> lista = new ArrayList<>();
             String condicao = " AND id = "+(int)object[0];
                     ;//haha vai ter q concatenar na mão kkk
@@ -135,6 +136,7 @@ public class MotoristaDao extends GenericDao<Motorista> {
 //            String sql = "SELECT id, nome, cpf, telefone, login, senha, data_nascimento, endereco, sexo, cnh, status_motorista, veiculo"
 //                    + "FROM motorista ORDER BY nome;";
             Connection con = util.Conexao.getConexao();
+            con.setAutoCommit(true);
             return this.visualizar(con, "motorista", "");
         } catch (Exception e) {
             return null;
@@ -144,6 +146,7 @@ public class MotoristaDao extends GenericDao<Motorista> {
     public List<Motorista> buscarMotoristasPassandoParametros(String... condicao) throws SQLException {
         try {
             Connection con = util.Conexao.getConexao();
+            con.setAutoCommit(true);
             return this.visualizar(con, "motorista", condicao);
         } catch (Exception e) {
             return null;

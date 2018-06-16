@@ -96,6 +96,7 @@ public class VeiculoDao extends GenericDao<Veiculo> {
     public Veiculo visualizarUm(Object... object) throws SQLException {
         try {
             Connection con = util.Conexao.getConexao();
+            con.setAutoCommit(true);
             List<Veiculo> lista = new ArrayList<>();
             String condicao = " AND id = ";
             condicao += (int)object[0] + "";
@@ -110,6 +111,7 @@ public class VeiculoDao extends GenericDao<Veiculo> {
     public List<Veiculo> visualizarAll() throws SQLException {
         try {
             Connection con = util.Conexao.getConexao();
+            con.setAutoCommit(true);
             return this.visualizar(con, "veiculo", "");
         } catch (Exception e) {
             return null;
@@ -119,6 +121,7 @@ public class VeiculoDao extends GenericDao<Veiculo> {
     public List<Veiculo> bucarVeiculosPassandoParametros(String... condicao) throws SQLException {
         try {
             Connection con = util.Conexao.getConexao();
+            con.setAutoCommit(true);
             return this.visualizar(con, "veiculo", condicao);
         } catch (Exception e) {
             return null;

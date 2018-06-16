@@ -71,8 +71,8 @@ public class MotoristaService implements ICrudService<Motorista>, BuscarPassando
 
     public Iterator<Motorista> bucarMotoristasPassandoStatusEnum(StatusMotorista statusMotorista) throws SQLException {
         try {
-            String condicao = " AND status_motorista = ";
-            condicao += statusMotorista.getDescricao();
+            String condicao = " AND status_motorista = '";
+            condicao += statusMotorista.getDescricao() + "'";
             return new MotoristaDao().buscarMotoristasPassandoParametros(condicao).iterator();
         } catch (Exception e) {
             return null;

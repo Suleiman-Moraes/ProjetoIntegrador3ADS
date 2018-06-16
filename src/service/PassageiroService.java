@@ -57,8 +57,8 @@ public class PassageiroService implements ICrudService<Passageiro>, BuscarPassan
     
     public Iterator<Passageiro> bucarPassageirosPassandoStatusEnum(StatusPassageiro statusPassageiro) throws SQLException {
         try {
-            String condicao = " AND status_passageiro = ";
-            condicao += statusPassageiro.getDescricao();
+            String condicao = " AND status_passageiro = '";
+            condicao += statusPassageiro.getDescricao() + "'";
             return new PassageiroDao().bucarPassageirosPassandoParametros(condicao).iterator();
         } catch (Exception e) {
             return null;
